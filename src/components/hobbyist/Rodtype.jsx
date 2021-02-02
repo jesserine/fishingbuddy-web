@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import HobbyistForm from './HobbyistForm'
-import firebaseDb from '../firebase'
-import * as db from '../firestore'
+import RodtypeForm from './RodtypeForm'
+import firebaseDb from '../../firebase'
+import * as db from '../../firestore'
 
-const Hobbyist = ({ user }) => {
+const Rodtype = () => {
   var [contactObjects, setContactObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist').on('value', (snapshot) => {
+    firebaseDb.ref('hobbyist/rodType').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val(),
@@ -20,12 +20,12 @@ const Hobbyist = ({ user }) => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist').push(obj, (err) => {
+      firebaseDb.ref('hobbyist/rodType').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`hobbyist/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`hobbyist/rodType/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,7 +33,7 @@ const Hobbyist = ({ user }) => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/${key}`).remove((err) => {
+      firebaseDb.ref(`hobbyist/rodType/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -142,16 +142,16 @@ const Hobbyist = ({ user }) => {
 
           {/* Nav Item - Tables  */}
           {/* <li className='nav-item active'>
-            <a className='nav-link' href='tables.html'>
-              <i className='fas fa-fw fa-table'></i>
-              <span>Hobbyist</span>
-            </a>
-          </li> */}
+              <a className='nav-link' href='tables.html'>
+                <i className='fas fa-fw fa-table'></i>
+                <span>Hobbyist</span>
+              </a>
+            </li> */}
 
           <li className='nav-item active'>
             <a
+              href='/'
               className='nav-link'
-              href='#'
               data-toggle='collapse'
               data-target='#collapseTwo'
               aria-expanded='true'
@@ -167,13 +167,10 @@ const Hobbyist = ({ user }) => {
               data-parent='#accordionSidebar'
             >
               <div className='bg-white py-2 collapse-inner rounded'>
-                <Link to='/luretype' user={user}>
-                  {' '}
-                  <a className='collapse-item'>Lure Type</a>
+                <Link to='luretype'>
+                  <a className='collapse-item '>Lure Type</a>
                 </Link>
-                <Link to='/rodtype' user={user}>
-                  <a className='collapse-item'>Rod Type</a>
-                </Link>
+                <a className='collapse-item active'>Rod Type</a>
                 <a className='collapse-item' href='cards.html'>
                   Reel Type
                 </a>
@@ -286,7 +283,7 @@ const Hobbyist = ({ user }) => {
                     aria-expanded='false'
                   >
                     <span className='mr-2 d-none d-lg-inline text-gray-600 small'>
-                      {user.displayName.toUpperCase()}
+                      {/* {user.displayName.toUpperCase()} */}
                     </span>
                     <img
                       className='img-profile rounded-circle'
@@ -329,9 +326,15 @@ const Hobbyist = ({ user }) => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>Hobbyist</h1>
+              <h1 className='h3 mb-2 text-gray-800'>Hobbyist (Rod Type)</h1>
               <p className='mb-4'>Hobbyist Fishing Setup Data Entry</p>
-              <HobbyistForm {...{ addOrEdit, currentId, contactObjects }} />
+              <Link to='/' class='btn btn-primary btn-icon-split btn-sm mb-3'>
+                <span class='icon text-white-50'>
+                  <i class='fas fa-arrow-right'></i>
+                </span>
+                <span class='text'>Back to Hobbyist</span>
+              </Link>
+              <RodtypeForm {...{ addOrEdit, currentId, contactObjects }} />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
@@ -349,29 +352,10 @@ const Hobbyist = ({ user }) => {
                     >
                       <thead>
                         <tr>
-                          <th>Rod Type</th>
-                          <th>Rod Brand</th>
-                          <th>Rod Price</th>
-                          <th>Lure Type</th>
-                          <th>Lure Brand</th>
-                          <th>Lure Price</th>
-                          <th>Reel Type</th>
-                          <th>Reel Brand</th>
-                          <th>Reel Price</th>
-                          <th>Braidline Type</th>
-                          <th>Braidline Brand</th>
-                          <th>Braidline Price</th>
-                          <th>Leaderline Type</th>
-                          <th>Leaderline Brand</th>
-                          <th>Leaderline Price</th>
-                          <th>Bait Type</th>
-                          <th>Bait Brand</th>
-                          <th>Bait Price</th>
-                          <th>Fishing Environment</th>
-                          <th>Type of Hobbyist</th>
-                          <th>Total Price</th>
-                          <th>Deleted</th>
                           <th>Actions</th>
+                          <th>ID</th>
+                          <th>Name</th>
+                          <th>isDeleted</th>
                         </tr>
                       </thead>
 
@@ -379,32 +363,6 @@ const Hobbyist = ({ user }) => {
                         {Object.keys(contactObjects).map((id) => {
                           return (
                             <tr key={id}>
-                              <td>{contactObjects[id].rodType}</td>
-                              <td>{contactObjects[id].rodBrand}</td>
-                              <td>{contactObjects[id].rodPrice}</td>
-                              <td>{contactObjects[id].lureType}</td>
-                              <td>{contactObjects[id].lureBrand}</td>
-                              <td>{contactObjects[id].lurePrice}</td>
-                              <td>{contactObjects[id].reelType}</td>
-                              <td>{contactObjects[id].reelBrand}</td>
-                              <td>{contactObjects[id].reelPrice}</td>
-                              <td>{contactObjects[id].braidlineType}</td>
-                              <td>{contactObjects[id].braidlineType}</td>
-                              <td>{contactObjects[id].braidlinePrice}</td>
-                              <td>{contactObjects[id].leaderlineType}</td>
-                              <td>{contactObjects[id].leaderlineBrand}</td>
-                              <td>{contactObjects[id].leaderlinePrice}</td>
-                              <td>{contactObjects[id].baitType}</td>
-                              <td>{contactObjects[id].baitBrand}</td>
-                              <td>{contactObjects[id].baitPrice}</td>
-                              <td>{contactObjects[id].fishingEnvironment}</td>
-                              <td>{contactObjects[id].typeOfHobbyist}</td>
-                              <td>{contactObjects[id].totalPrice}</td>
-                              <td>
-                                {contactObjects[id].isDeleted == '0'
-                                  ? 'No'
-                                  : 'Yes'}
-                              </td>
                               <td>
                                 <a
                                   onClick={() => {
@@ -423,6 +381,13 @@ const Hobbyist = ({ user }) => {
                                 >
                                   <i className='fas fa-trash'></i>
                                 </a>
+                              </td>
+                              <td>{id}</td>
+                              <td>{contactObjects[id].rodTypeName}</td>
+                              <td>
+                                {contactObjects[id].rodTypeIsDeleted == '0'
+                                  ? 'False'
+                                  : 'True'}
                               </td>
                             </tr>
                           )
@@ -453,4 +418,4 @@ const Hobbyist = ({ user }) => {
   )
 }
 
-export default Hobbyist
+export default Rodtype

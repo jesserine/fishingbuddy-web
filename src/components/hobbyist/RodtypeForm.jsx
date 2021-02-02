@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
-const LuretypeForm = (props) => {
+const RodtypeForm = (props) => {
   const initialFieldValues = {
-    lureTypeName: '',
-    lureTypeIsDeleted: '0',
+    rodTypeName: '',
+    rodTypeIsDeleted: '0',
   }
 
   var [values, setValues] = useState(initialFieldValues)
@@ -37,11 +37,11 @@ const LuretypeForm = (props) => {
     <form autoComplete='off' onSubmit={handleFormSubmit}>
       <div className='form-group input-group row'>
         <div className='col-sm-10 mb-10 mb-sm-0'>
-          <label>Lure Type</label>
+          <label>Rod Type</label>
           <input
             className='form-control'
-            name='lureTypeName'
-            value={values.lureTypeName}
+            name='rodTypeName'
+            value={values.rodTypeName}
             onChange={handleInputChange}
             required
           />
@@ -51,8 +51,8 @@ const LuretypeForm = (props) => {
           <label>Deleted</label>
           <select
             className='form-control'
-            name='lureTypeIsDeleted'
-            value={values.lureTypeIsDeleted}
+            name='rodTypeIsDeleted'
+            value={values.rodTypeIsDeleted}
             onChange={handleInputChange}
           >
             <option value='0'>False</option>
@@ -72,4 +72,4 @@ const LuretypeForm = (props) => {
   )
 }
 
-export default LuretypeForm
+export default RodtypeForm

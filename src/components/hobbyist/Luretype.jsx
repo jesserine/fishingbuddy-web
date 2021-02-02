@@ -168,9 +168,9 @@ const Luretype = () => {
             >
               <div className='bg-white py-2 collapse-inner rounded'>
                 <a className='collapse-item active'>Lure Type</a>
-                <a className='collapse-item' href='cards.html'>
-                  Rod Type
-                </a>
+                <Link to='/rodtype'>
+                  <a className='collapse-item'>Rod Type</a>
+                </Link>
                 <a className='collapse-item' href='cards.html'>
                   Reel Type
                 </a>
@@ -386,8 +386,8 @@ const Luretype = () => {
                               <td>{contactObjects[id].lureTypeName}</td>
                               <td>
                                 {contactObjects[id].lureTypeIsDeleted == '0'
-                                  ? 'No'
-                                  : 'Yes'}
+                                  ? 'False'
+                                  : 'True'}
                               </td>
                             </tr>
                           )

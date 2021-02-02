@@ -7,6 +7,7 @@ import SignIn from './components/SignIn'
 import Loading from './components/shared/Loading'
 import useAuth from './hooks/useAuth'
 import Luretype from './components/hobbyist/Luretype'
+import Rodtype from './components/hobbyist/Rodtype'
 
 export const UserContext = React.createContext()
 
@@ -24,6 +25,7 @@ function AuthApp({ user }) {
           {/* <Route path='/:listId' component={ListPage} /> */}
           <Route exact path='/' component={HomePage} />
           <Route exact path='/luretype' component={Luretype} />
+          <Route exact path='/rodtype' component={Rodtype} />
         </UserContext.Provider>
       </Switch>
     </BrowserRouter>
