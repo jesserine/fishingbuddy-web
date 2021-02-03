@@ -9,6 +9,7 @@ import useAuth from './hooks/useAuth'
 import Luretype from './components/hobbyist/Luretype'
 import Rodtype from './components/hobbyist/Rodtype'
 import Reeltype from './components/hobbyist/Reeltype'
+import Braidlinetype from './components/hobbyist/Braidlinetype'
 
 export const UserContext = React.createContext()
 
@@ -28,6 +29,7 @@ function AuthApp({ user }) {
           <Route exact path='/luretype' component={Luretype} />
           <Route exact path='/rodtype' component={Rodtype} />
           <Route exact path='/reeltype' component={Reeltype} />
+          <Route exact path='/braidlinetype' component={Braidlinetype} />
         </UserContext.Provider>
       </Switch>
     </BrowserRouter>

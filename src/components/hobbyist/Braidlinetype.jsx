@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import LuretypeForm from './LuretypeForm'
+import BraidlinetypeForm from './BraidlinetypeForm'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
 
-const Luretype = () => {
+const Braidlinetype = () => {
   var [contactObjects, setContactObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist/lureType').on('value', (snapshot) => {
+    firebaseDb.ref('hobbyist/braidlineType').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val(),
@@ -20,12 +20,12 @@ const Luretype = () => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist/lureType').push(obj, (err) => {
+      firebaseDb.ref('hobbyist/braidlineType').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`hobbyist/lureType/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`hobbyist/braidlineType/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,7 +33,7 @@ const Luretype = () => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/lureType/${key}`).remove((err) => {
+      firebaseDb.ref(`hobbyist/braidlineType/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -167,16 +167,16 @@ const Luretype = () => {
               data-parent='#accordionSidebar'
             >
               <div className='bg-white py-2 collapse-inner rounded'>
-                <a className='collapse-item active'>Lure Type</a>
+                <Link to='/luretype'>
+                  <a className='collapse-item'>Lure Type</a>
+                </Link>
                 <Link to='/rodtype'>
                   <a className='collapse-item'>Rod Type</a>
                 </Link>
                 <Link to='/reeltype'>
                   <a className='collapse-item'>Reel Type</a>
                 </Link>
-                <Link to='/braidlinetype'>
-                  <a className='collapse-item'>Braidline Type</a>
-                </Link>
+                <a className='collapse-item active'>Braidline Type</a>
                 <a className='collapse-item' href='cards.html'>
                   Leaderline Type
                 </a>
@@ -326,7 +326,9 @@ const Luretype = () => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>Hobbyist (Lure Type)</h1>
+              <h1 className='h3 mb-2 text-gray-800'>
+                Hobbyist (Braidline Type)
+              </h1>
               <p className='mb-4'>Hobbyist Fishing Setup Data Entry</p>
               <Link to='/' class='btn btn-primary btn-icon-split btn-sm mb-3'>
                 <span class='icon text-white-50'>
@@ -334,7 +336,9 @@ const Luretype = () => {
                 </span>
                 <span class='text'>Back to Hobbyist</span>
               </Link>
-              <LuretypeForm {...{ addOrEdit, currentId, contactObjects }} />
+              <BraidlinetypeForm
+                {...{ addOrEdit, currentId, contactObjects }}
+              />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
@@ -383,9 +387,10 @@ const Luretype = () => {
                                 </a>
                               </td>
                               <td>{id}</td>
-                              <td>{contactObjects[id].lureTypeName}</td>
+                              <td>{contactObjects[id].braidlineTypeName}</td>
                               <td>
-                                {contactObjects[id].lureTypeIsDeleted == '0'
+                                {contactObjects[id].braidlineTypeIsDeleted ==
+                                '0'
                                   ? 'False'
                                   : 'True'}
                               </td>
@@ -418,4 +423,4 @@ const Luretype = () => {
   )
 }
 
-export default Luretype
+export default Braidlinetype

@@ -168,15 +168,15 @@ const Reeltype = () => {
             >
               <div className='bg-white py-2 collapse-inner rounded'>
                 <Link to='/luretype'>
-                  <a className='collapse-item active'>Lure Type</a>
+                  <a className='collapse-item'>Lure Type</a>
                 </Link>
                 <Link to='/rodtype'>
                   <a className='collapse-item'>Rod Type</a>
                 </Link>
-                <a className='collapse-item'>Reel Type</a>
-                <a className='collapse-item' href='cards.html'>
-                  Braidline Type
-                </a>
+                <a className='collapse-item active'>Reel Type</a>
+                <Link to='/braidlinetype'>
+                  <a className='collapse-item'>Braidline Type</a>
+                </Link>
                 <a className='collapse-item' href='cards.html'>
                   Leaderline Type
                 </a>
