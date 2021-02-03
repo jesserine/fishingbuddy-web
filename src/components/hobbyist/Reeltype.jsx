@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import RodtypeForm from './RodtypeForm'
+import ReeltypeForm from './ReeltypeForm'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
 
-const Rodtype = () => {
+const Reeltype = () => {
   var [contactObjects, setContactObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist/rodType').on('value', (snapshot) => {
+    firebaseDb.ref('hobbyist/reelType').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val(),
@@ -20,12 +20,12 @@ const Rodtype = () => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist/rodType').push(obj, (err) => {
+      firebaseDb.ref('hobbyist/reelType').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`hobbyist/rodType/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`hobbyist/reelType/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,7 +33,7 @@ const Rodtype = () => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/rodType/${key}`).remove((err) => {
+      firebaseDb.ref(`hobbyist/reelType/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -167,13 +167,13 @@ const Rodtype = () => {
               data-parent='#accordionSidebar'
             >
               <div className='bg-white py-2 collapse-inner rounded'>
-                <Link to='luretype'>
-                  <a className='collapse-item'>Lure Type</a>
+                <Link to='/luretype'>
+                  <a className='collapse-item active'>Lure Type</a>
                 </Link>
-                <a className='collapse-item active'>Rod Type</a>
-                <Link to='reeltype'>
-                  <a className='collapse-item'>Reel Type</a>
+                <Link to='/rodtype'>
+                  <a className='collapse-item'>Rod Type</a>
                 </Link>
+                <a className='collapse-item'>Reel Type</a>
                 <a className='collapse-item' href='cards.html'>
                   Braidline Type
                 </a>
@@ -326,7 +326,7 @@ const Rodtype = () => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>Hobbyist (Rod Type)</h1>
+              <h1 className='h3 mb-2 text-gray-800'>Hobbyist (Reel Type)</h1>
               <p className='mb-4'>Hobbyist Fishing Setup Data Entry</p>
               <Link to='/' class='btn btn-primary btn-icon-split btn-sm mb-3'>
                 <span class='icon text-white-50'>
@@ -334,7 +334,7 @@ const Rodtype = () => {
                 </span>
                 <span class='text'>Back to Hobbyist</span>
               </Link>
-              <RodtypeForm {...{ addOrEdit, currentId, contactObjects }} />
+              <ReeltypeForm {...{ addOrEdit, currentId, contactObjects }} />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
@@ -383,9 +383,9 @@ const Rodtype = () => {
                                 </a>
                               </td>
                               <td>{id}</td>
-                              <td>{contactObjects[id].rodTypeName}</td>
+                              <td>{contactObjects[id].reelTypeName}</td>
                               <td>
-                                {contactObjects[id].rodTypeIsDeleted == '0'
+                                {contactObjects[id].reelTypeIsDeleted == '0'
                                   ? 'False'
                                   : 'True'}
                               </td>
@@ -418,4 +418,4 @@ const Rodtype = () => {
   )
 }
 
-export default Rodtype
+export default Reeltype

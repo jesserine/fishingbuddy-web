@@ -171,9 +171,9 @@ const Luretype = () => {
                 <Link to='/rodtype'>
                   <a className='collapse-item'>Rod Type</a>
                 </Link>
-                <a className='collapse-item' href='cards.html'>
-                  Reel Type
-                </a>
+                <Link to='/reeltype'>
+                  <a className='collapse-item'>Reel Type</a>
+                </Link>
                 <a className='collapse-item' href='cards.html'>
                   Braidline Type
                 </a>
