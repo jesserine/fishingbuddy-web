@@ -180,6 +180,9 @@ const Rodtype = () => {
                 <Link to='/leaderlinetype'>
                   <a className='collapse-item'>Leaderline Type</a>
                 </Link>
+                <Link to='/environmenttype'>
+                  <a className='collapse-item'>Environment Type</a>
+                </Link>
               </div>
             </div>
           </li>

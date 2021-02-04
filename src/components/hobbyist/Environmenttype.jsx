@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import LeaderlinetypeForm from './LeaderlinetypeForm'
+import EnvironmenttypeForm from './EnvironmenttypeForm'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
 
-const Leaderlinetype = () => {
+const Luretype = () => {
   var [contactObjects, setContactObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist/leaderlineType').on('value', (snapshot) => {
+    firebaseDb.ref('hobbyist/environmentType').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val(),
@@ -20,20 +20,22 @@ const Leaderlinetype = () => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist/leaderlineType').push(obj, (err) => {
+      firebaseDb.ref('hobbyist/environmentType').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`hobbyist/leaderlineType/${currentId}`).set(obj, (err) => {
-        if (err) console.log(err)
-        else setCurrentId('')
-      })
+      firebaseDb
+        .ref(`hobbyist/environmentType/${currentId}`)
+        .set(obj, (err) => {
+          if (err) console.log(err)
+          else setCurrentId('')
+        })
   }
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/leaderlineType/${key}`).remove((err) => {
+      firebaseDb.ref(`hobbyist/environmentType/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -167,9 +169,7 @@ const Leaderlinetype = () => {
               data-parent='#accordionSidebar'
             >
               <div className='bg-white py-2 collapse-inner rounded'>
-                <Link to='/luretype'>
-                  <a className='collapse-item'>Lure Type</a>
-                </Link>
+                <a className='collapse-item'>Lure Type</a>
                 <Link to='/rodtype'>
                   <a className='collapse-item'>Rod Type</a>
                 </Link>
@@ -179,10 +179,10 @@ const Leaderlinetype = () => {
                 <Link to='/braidlinetype'>
                   <a className='collapse-item'>Braidline Type</a>
                 </Link>
-                <a className='collapse-item active'>Leaderline Type</a>
-                <Link to='/environmenttype'>
-                  <a className='collapse-item'>Environment Type</a>
+                <Link to='/leaderlinetype'>
+                  <a className='collapse-item'>Leaderline Type</a>
                 </Link>
+                <a className='collapse-item active'>Environment Type</a>
               </div>
             </div>
           </li>
@@ -329,9 +329,7 @@ const Leaderlinetype = () => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>
-                Hobbyist (Leaderline Type)
-              </h1>
+              <h1 className='h3 mb-2 text-gray-800'>Hobbyist (Lure Type)</h1>
               <p className='mb-4'>Hobbyist Fishing Setup Data Entry</p>
               <Link to='/' class='btn btn-primary btn-icon-split btn-sm mb-3'>
                 <span class='icon text-white-50'>
@@ -339,7 +337,7 @@ const Leaderlinetype = () => {
                 </span>
                 <span class='text'>Back to Hobbyist</span>
               </Link>
-              <LeaderlinetypeForm
+              <EnvironmenttypeForm
                 {...{ addOrEdit, currentId, contactObjects }}
               />
               {/* DataTales Example  */}
@@ -390,9 +388,9 @@ const Leaderlinetype = () => {
                                 </a>
                               </td>
                               <td>{id}</td>
-                              <td>{contactObjects[id].leaderlineTypeName}</td>
+                              <td>{contactObjects[id].fishingEnviTypeName}</td>
                               <td>
-                                {contactObjects[id].leaderlineTypeIsDeleted ==
+                                {contactObjects[id].fishingEnviTypeIsDeleted ==
                                 '0'
                                   ? 'False'
                                   : 'True'}
@@ -426,4 +424,4 @@ const Leaderlinetype = () => {
   )
 }
 
-export default Leaderlinetype
+export default Luretype

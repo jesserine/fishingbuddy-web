@@ -177,9 +177,12 @@ const Braidlinetype = () => {
                   <a className='collapse-item'>Reel Type</a>
                 </Link>
                 <a className='collapse-item active'>Braidline Type</a>
-                <a className='collapse-item' href='cards.html'>
-                  Leaderline Type
-                </a>
+                <Link to='/leaderlinetype'>
+                  <a className='collapse-item'>Leaderline Type</a>
+                </Link>
+                <Link to='/environmenttype'>
+                  <a className='collapse-item'>Environment Type</a>
+                </Link>
               </div>
             </div>
           </li>

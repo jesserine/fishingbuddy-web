@@ -11,6 +11,7 @@ import Rodtype from './components/hobbyist/Rodtype'
 import Reeltype from './components/hobbyist/Reeltype'
 import Braidlinetype from './components/hobbyist/Braidlinetype'
 import Leaderlinetype from './components/hobbyist/Leaderlinetype'
+import Environmenttype from './components/hobbyist/Environmenttype'
 
 export const UserContext = React.createContext()
 
@@ -32,6 +33,7 @@ function AuthApp({ user }) {
           <Route exact path='/reeltype' component={Reeltype} />
           <Route exact path='/braidlinetype' component={Braidlinetype} />
           <Route exact path='/leaderlinetype' component={Leaderlinetype} />
+          <Route exact path='/environmenttype' component={Environmenttype} />
         </UserContext.Provider>
       </Switch>
     </BrowserRouter>

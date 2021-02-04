@@ -182,6 +182,9 @@ const Hobbyist = ({ user }) => {
                 <Link to='/leaderlinetype' user={user}>
                   <a className='collapse-item'>Leaderline Type</a>
                 </Link>
+                <Link to='/environmenttype' user={user}>
+                  <a className='collapse-item'>Environment Type</a>
+                </Link>
               </div>
             </div>
           </li>
