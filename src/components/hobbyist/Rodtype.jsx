@@ -177,9 +177,9 @@ const Rodtype = () => {
                 <Link to='braidlinetype'>
                   <a className='collapse-item'>Braidline Type</a>
                 </Link>
-                <a className='collapse-item' href='cards.html'>
-                  Leaderline Type
-                </a>
+                <Link to='/leaderlinetype'>
+                  <a className='collapse-item'>Leaderline Type</a>
+                </Link>
               </div>
             </div>
           </li>

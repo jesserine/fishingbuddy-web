@@ -168,21 +168,20 @@ const Hobbyist = ({ user }) => {
             >
               <div className='bg-white py-2 collapse-inner rounded'>
                 <Link to='/luretype' user={user}>
-                  {' '}
                   <a className='collapse-item'>Lure Type</a>
                 </Link>
                 <Link to='/rodtype' user={user}>
                   <a className='collapse-item'>Rod Type</a>
                 </Link>
-                <a className='collapse-item' href='cards.html'>
-                  Reel Type
-                </a>
-                <a className='collapse-item' href='cards.html'>
-                  Braidline Type
-                </a>
-                <a className='collapse-item' href='cards.html'>
-                  Leaderline Type
-                </a>
+                <Link to='/reeltype' user={user}>
+                  <a className='collapse-item'>Reel Type</a>
+                </Link>
+                <Link to='/braidlinetype' user={user}>
+                  <a className='collapse-item'>Braidline Type</a>
+                </Link>
+                <Link to='/leaderlinetype' user={user}>
+                  <a className='collapse-item'>Leaderline Type</a>
+                </Link>
               </div>
             </div>
           </li>
