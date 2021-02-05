@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import EnvironmenttypeForm from './EnvironmenttypeForm'
+import CatchsizeForm from './CatchsizeForm'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
 
-const Luretype = () => {
+const Catchsize = () => {
   var [contactObjects, setContactObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist/environmentType').on('value', (snapshot) => {
+    firebaseDb.ref('hobbyist/catchSize').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val(),
@@ -20,22 +20,20 @@ const Luretype = () => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist/environmentType').push(obj, (err) => {
+      firebaseDb.ref('hobbyist/catchSize').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb
-        .ref(`hobbyist/environmentType/${currentId}`)
-        .set(obj, (err) => {
-          if (err) console.log(err)
-          else setCurrentId('')
-        })
+      firebaseDb.ref(`hobbyist/catchSize/${currentId}`).set(obj, (err) => {
+        if (err) console.log(err)
+        else setCurrentId('')
+      })
   }
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/environmentType/${key}`).remove((err) => {
+      firebaseDb.ref(`hobbyist/catchSize/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -169,7 +167,9 @@ const Luretype = () => {
               data-parent='#accordionSidebar'
             >
               <div className='bg-white py-2 collapse-inner rounded'>
-                <a className='collapse-item'>Lure Type</a>
+                <Link to='/luretype'>
+                  <a className='collapse-item'>Lure Type</a>
+                </Link>
                 <Link to='/rodtype'>
                   <a className='collapse-item'>Rod Type</a>
                 </Link>
@@ -182,10 +182,10 @@ const Luretype = () => {
                 <Link to='/leaderlinetype'>
                   <a className='collapse-item'>Leaderline Type</a>
                 </Link>
-                <a className='collapse-item active'>Environment Type</a>
-                <Link to='/catchsize'>
-                  <a className='collapse-item'>Catch Size</a>
+                <Link to='/environmenttype'>
+                  <a className='collapse-item'>Environment Type</a>
                 </Link>
+                <a className='collapse-item active'>Catch Size</a>
               </div>
             </div>
           </li>
@@ -340,9 +340,7 @@ const Luretype = () => {
                 </span>
                 <span class='text'>Back to Hobbyist</span>
               </Link>
-              <EnvironmenttypeForm
-                {...{ addOrEdit, currentId, contactObjects }}
-              />
+              <CatchsizeForm {...{ addOrEdit, currentId, contactObjects }} />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
@@ -363,6 +361,7 @@ const Luretype = () => {
                           <th>Actions</th>
                           <th>ID</th>
                           <th>Name</th>
+                          <th>Weight</th>
                           <th>isDeleted</th>
                         </tr>
                       </thead>
@@ -391,10 +390,10 @@ const Luretype = () => {
                                 </a>
                               </td>
                               <td>{id}</td>
-                              <td>{contactObjects[id].fishingEnviTypeName}</td>
+                              <td>{contactObjects[id].catchSizeName}</td>
+                              <td>{contactObjects[id].catchSizeWeight}</td>
                               <td>
-                                {contactObjects[id].fishingEnviTypeIsDeleted ==
-                                '0'
+                                {contactObjects[id].catchSizeIsDeleted == '0'
                                   ? 'False'
                                   : 'True'}
                               </td>
@@ -427,4 +426,4 @@ const Luretype = () => {
   )
 }
 
-export default Luretype
+export default Catchsize
