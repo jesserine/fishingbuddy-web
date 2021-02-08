@@ -9,7 +9,7 @@ const Rodtype = () => {
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist/rodType').on('value', (snapshot) => {
+    firebaseDb.ref('hobbyist/rodTypes').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val(),
@@ -20,12 +20,12 @@ const Rodtype = () => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist/rodType').push(obj, (err) => {
+      firebaseDb.ref('hobbyist/rodTypes').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`hobbyist/rodType/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`hobbyist/rodTypes/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,7 +33,7 @@ const Rodtype = () => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/rodType/${key}`).remove((err) => {
+      firebaseDb.ref(`hobbyist/rodTypes/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -183,8 +183,11 @@ const Rodtype = () => {
                 <Link to='/environmenttype'>
                   <a className='collapse-item'>Environment Type</a>
                 </Link>
-                <Link to='/catchsize'>
-                  <a className='collapse-item'>Catch Size</a>
+                <Link to='/catchtype'>
+                  <a className='collapse-item'>Catch Type</a>
+                </Link>
+                <Link to='/hobbyisttype'>
+                  <a className='collapse-item'>Hobbyist Type</a>
                 </Link>
               </div>
             </div>

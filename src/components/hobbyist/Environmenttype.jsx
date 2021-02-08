@@ -183,8 +183,11 @@ const Luretype = () => {
                   <a className='collapse-item'>Leaderline Type</a>
                 </Link>
                 <a className='collapse-item active'>Environment Type</a>
-                <Link to='/catchsize'>
-                  <a className='collapse-item'>Catch Size</a>
+                <Link to='/catchtype'>
+                  <a className='collapse-item'>Catch Type</a>
+                </Link>
+                <Link to='/hobbyisttype'>
+                  <a className='collapse-item'>Hobbyist Type</a>
                 </Link>
               </div>
             </div>
@@ -332,7 +335,9 @@ const Luretype = () => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>Hobbyist (Lure Type)</h1>
+              <h1 className='h3 mb-2 text-gray-800'>
+                Hobbyist (Environment Type)
+              </h1>
               <p className='mb-4'>Hobbyist Fishing Setup Data Entry</p>
               <Link to='/' class='btn btn-primary btn-icon-split btn-sm mb-3'>
                 <span class='icon text-white-50'>

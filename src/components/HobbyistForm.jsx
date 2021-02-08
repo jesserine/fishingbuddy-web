@@ -1,13 +1,101 @@
 import React, { useState, useEffect } from 'react'
+import firebaseDb from '../firebase'
+import * as db from '../firestore'
 
 const HobbyistForm = (props) => {
+  var [rodObjects, setRodObjects] = useState({})
+  var [reelObjects, setReelObjects] = useState({})
+  var [braidlineObjects, setBraidlineObjects] = useState({})
+  var [leaderlineObjects, setLeaderlineObjects] = useState({})
+  var [lureObjects, setLureObjects] = useState({})
+  var [environmentObjects, setEnvironmentObjects] = useState({})
+  var [catchObjects, setCatchObjects] = useState({})
+  var [hobbyistObjects, setHobbyistObjects] = useState({})
+
+  useEffect(() => {
+    firebaseDb.ref('hobbyist/rodTypes').on('value', (snapshot) => {
+      if (snapshot.val() != null)
+        setRodObjects({
+          ...snapshot.val(),
+        })
+      else setRodObjects({})
+    })
+  }, [])
+
+  useEffect(() => {
+    firebaseDb.ref('hobbyist/reelType').on('value', (snapshot) => {
+      if (snapshot.val() != null)
+        setReelObjects({
+          ...snapshot.val(),
+        })
+      else setReelObjects({})
+    })
+  }, [])
+
+  useEffect(() => {
+    firebaseDb.ref('hobbyist/braidlineType').on('value', (snapshot) => {
+      if (snapshot.val() != null)
+        setBraidlineObjects({
+          ...snapshot.val(),
+        })
+      else setBraidlineObjects({})
+    })
+  }, [])
+
+  useEffect(() => {
+    firebaseDb.ref('hobbyist/leaderlineType').on('value', (snapshot) => {
+      if (snapshot.val() != null)
+        setLeaderlineObjects({
+          ...snapshot.val(),
+        })
+      else setLeaderlineObjects({})
+    })
+  }, [])
+
+  useEffect(() => {
+    firebaseDb.ref('hobbyist/lureType').on('value', (snapshot) => {
+      if (snapshot.val() != null)
+        setLureObjects({
+          ...snapshot.val(),
+        })
+      else setLureObjects({})
+    })
+  }, [])
+
+  useEffect(() => {
+    firebaseDb.ref('hobbyist/environmentType').on('value', (snapshot) => {
+      if (snapshot.val() != null)
+        setEnvironmentObjects({
+          ...snapshot.val(),
+        })
+      else setEnvironmentObjects({})
+    })
+  }, [])
+
+  useEffect(() => {
+    firebaseDb.ref('hobbyist/catchType').on('value', (snapshot) => {
+      if (snapshot.val() != null)
+        setCatchObjects({
+          ...snapshot.val(),
+        })
+      else setCatchObjects({})
+    })
+  }, [])
+
+  useEffect(() => {
+    firebaseDb.ref('hobbyist/hobbyistType').on('value', (snapshot) => {
+      if (snapshot.val() != null)
+        setHobbyistObjects({
+          ...snapshot.val(),
+        })
+      else setHobbyistObjects({})
+    })
+  }, [])
+
   const initialFieldValues = {
-    rodType: '',
+    rodTypes: '',
     rodBrand: '',
     rodPrice: '0',
-    lureType: '',
-    lureBrand: '',
-    lurePrice: '0',
     reelType: '',
     reelBrand: '',
     reelPrice: '0',
@@ -17,11 +105,12 @@ const HobbyistForm = (props) => {
     leaderlineType: '',
     leaderlineBrand: '',
     leaderlinePrice: '0',
-    baitType: '',
-    baitBrand: '',
-    baitPrice: '0',
-    fishingEnvironment: '',
-    typeOfHobbyist: '',
+    lureType: '',
+    lureBrand: '',
+    lurePrice: '0',
+    environmentType: '',
+    catchType: '',
+    hobbyistType: '',
     isDeleted: '0',
     totalPrice: '',
   }
@@ -35,9 +124,9 @@ const HobbyistForm = (props) => {
       })
     else
       setValues({
-        ...props.contactObjects[props.currentId],
+        ...props.hobbyistObjects[props.currentId],
       })
-  }, [props.currentId, props.contactObjects])
+  }, [props.currentId, props.hobbyistObjects])
 
   const handleInputChange = (e) => {
     var { name, value } = e.target
@@ -54,11 +143,10 @@ const HobbyistForm = (props) => {
 
   values.totalPrice =
     Number(values.rodPrice) +
-    Number(values.lurePrice) +
     Number(values.reelPrice) +
     Number(values.braidlinePrice) +
     Number(values.leaderlinePrice) +
-    Number(values.baitPrice)
+    Number(values.lurePrice)
 
   return (
     // <></>
@@ -66,12 +154,24 @@ const HobbyistForm = (props) => {
       <div className='form-group input-group row'>
         <div className='col-sm-4 mb-3 mb-sm-0'>
           <label>Rod Type</label>
-          <input
+          <select
             className='form-control'
-            name='rodType'
-            value={values.rodType}
+            name='rodTypes'
+            value={values.rodTypes}
             onChange={handleInputChange}
-          />
+            required
+          >
+            <option value=''>Select</option>
+            {Object.keys(rodObjects).map((id) => {
+              return (
+                <React.Fragment key={id}>
+                  <option value={rodObjects[id].rodTypeName}>
+                    {rodObjects[id].rodTypeName}
+                  </option>
+                </React.Fragment>
+              )
+            })}
+          </select>
         </div>
         <div className='col-sm-4'>
           <label>Rod Brand</label>
@@ -80,6 +180,7 @@ const HobbyistForm = (props) => {
             name='rodBrand'
             value={values.rodBrand}
             onChange={handleInputChange}
+            required
           />
         </div>
         <div className='col-sm-4'>
@@ -90,37 +191,7 @@ const HobbyistForm = (props) => {
             type='number'
             value={values.rodPrice}
             onChange={handleInputChange}
-          />
-        </div>
-      </div>
-
-      <div className='form-group input-group row'>
-        <div className='col-sm-4 mb-3 mb-sm-0'>
-          <label>Lure Type</label>
-          <input
-            className='form-control'
-            name='lureType'
-            value={values.lureType}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className='col-sm-4'>
-          <label>Lure Brand</label>
-          <input
-            className='form-control'
-            name='lureBrand'
-            value={values.lureBrand}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className='col-sm-4'>
-          <label>Lure Price</label>
-          <input
-            className='form-control'
-            name='lurePrice'
-            type='number'
-            value={values.lurePrice}
-            onChange={handleInputChange}
+            required
           />
         </div>
       </div>
@@ -128,12 +199,24 @@ const HobbyistForm = (props) => {
       <div className='form-group input-group row'>
         <div className='col-sm-4 mb-4 mb-sm-0'>
           <label>Reel Type</label>
-          <input
+          <select
             className='form-control'
             name='reelType'
             value={values.reelType}
             onChange={handleInputChange}
-          />
+            required
+          >
+            <option value=''>Select</option>
+            {Object.keys(reelObjects).map((id) => {
+              return (
+                <React.Fragment key={id}>
+                  <option value={reelObjects[id].reelTypeName}>
+                    {reelObjects[id].reelTypeName}
+                  </option>
+                </React.Fragment>
+              )
+            })}
+          </select>
         </div>
         <div className='col-sm-4'>
           <label>Reel Brand</label>
@@ -159,12 +242,24 @@ const HobbyistForm = (props) => {
       <div className='form-group input-group row'>
         <div className='col-sm-4 mb-3 mb-sm-0'>
           <label>Braidline Type</label>
-          <input
+          <select
             className='form-control'
             name='braidlineType'
             value={values.braidlineType}
             onChange={handleInputChange}
-          />
+            required
+          >
+            <option value=''>Select</option>
+            {Object.keys(braidlineObjects).map((id) => {
+              return (
+                <React.Fragment key={id}>
+                  <option value={braidlineObjects[id].braidlineTypeName}>
+                    {braidlineObjects[id].braidlineTypeName}
+                  </option>
+                </React.Fragment>
+              )
+            })}
+          </select>
         </div>
         <div className='col-sm-4'>
           <label>Braidline Brand</label>
@@ -190,12 +285,24 @@ const HobbyistForm = (props) => {
       <div className='form-group input-group row'>
         <div className='col-sm-4 mb-3 mb-sm-0'>
           <label>Leaderline Type</label>
-          <input
+          <select
             className='form-control'
             name='leaderlineType'
             value={values.leaderlineType}
             onChange={handleInputChange}
-          />
+            required
+          >
+            <option value=''>Select</option>
+            {Object.keys(leaderlineObjects).map((id) => {
+              return (
+                <React.Fragment key={id}>
+                  <option value={leaderlineObjects[id].leaderlineTypeName}>
+                    {leaderlineObjects[id].leaderlineTypeName}
+                  </option>
+                </React.Fragment>
+              )
+            })}
+          </select>
         </div>
         <div className='col-sm-4'>
           <label>Leaderline Brand</label>
@@ -220,30 +327,42 @@ const HobbyistForm = (props) => {
 
       <div className='form-group input-group row'>
         <div className='col-sm-4 mb-3 mb-sm-0'>
-          <label>Bait Type</label>
+          <label>Lure Type</label>
+          <select
+            className='form-control'
+            name='lureType'
+            value={values.lureType}
+            onChange={handleInputChange}
+            required
+          >
+            <option value=''>Select</option>
+            {Object.keys(lureObjects).map((id) => {
+              return (
+                <React.Fragment key={id}>
+                  <option value={lureObjects[id].lureTypeName}>
+                    {lureObjects[id].lureTypeName}
+                  </option>
+                </React.Fragment>
+              )
+            })}
+          </select>
+        </div>
+        <div className='col-sm-4'>
+          <label>Lure Brand</label>
           <input
             className='form-control'
-            name='baitType'
-            value={values.baitType}
+            name='lureBrand'
+            value={values.lureBrand}
             onChange={handleInputChange}
           />
         </div>
         <div className='col-sm-4'>
-          <label>Bait Brand</label>
+          <label>Lure Price</label>
           <input
             className='form-control'
-            name='baitBrand'
-            value={values.baitBrand}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className='col-sm-4'>
-          <label>Bait Price</label>
-          <input
-            className='form-control'
-            name='baitPrice'
+            name='lurePrice'
             type='number'
-            value={values.baitPrice}
+            value={values.lurePrice}
             onChange={handleInputChange}
           />
         </div>
@@ -251,22 +370,67 @@ const HobbyistForm = (props) => {
 
       <div className='form-group input-group row'>
         <div className='col-sm-4 mb-3 mb-sm-0'>
-          <label>Fishing Environment</label>
-          <input
+          <label>Environment Type</label>
+          <select
             className='form-control'
-            name='fishingEnvironment'
-            value={values.fishingEnvironment}
+            name='environmentType'
+            value={values.environmentType}
             onChange={handleInputChange}
-          />
+            required
+          >
+            <option value=''>Select</option>
+            {Object.keys(environmentObjects).map((id) => {
+              return (
+                <React.Fragment key={id}>
+                  <option value={environmentObjects[id].fishingEnviTypeName}>
+                    {environmentObjects[id].fishingEnviTypeName}
+                  </option>
+                </React.Fragment>
+              )
+            })}
+          </select>
         </div>
-        <div className='col-sm-4'>
-          <label>Type of Hobbyist</label>
-          <input
+        <div className='col-sm-2'>
+          <label>Catch Type</label>
+          <select
             className='form-control'
-            name='typeOfHobbyist'
-            value={values.typeOfHobbyist}
+            name='catchType'
+            value={values.catchType}
             onChange={handleInputChange}
-          />
+            required
+          >
+            <option value=''>Select</option>
+            {Object.keys(catchObjects).map((id) => {
+              return (
+                <React.Fragment key={id}>
+                  <option value={catchObjects[id].catchTypeName}>
+                    {catchObjects[id].catchTypeName}
+                  </option>
+                </React.Fragment>
+              )
+            })}
+          </select>
+        </div>
+        <div className='col-sm-2'>
+          <label>Hobbyist Type</label>
+          <select
+            className='form-control'
+            name='hobbyistType'
+            value={values.hobbyistType}
+            onChange={handleInputChange}
+            required
+          >
+            <option value=''>Select</option>
+            {Object.keys(hobbyistObjects).map((id) => {
+              return (
+                <React.Fragment key={id}>
+                  <option value={hobbyistObjects[id].hobbyistTypeName}>
+                    {hobbyistObjects[id].hobbyistTypeName}
+                  </option>
+                </React.Fragment>
+              )
+            })}
+          </select>
         </div>
         <div className='col-sm-2'>
           <label>Total Price</label>
@@ -280,13 +444,6 @@ const HobbyistForm = (props) => {
         </div>
         <div className='col-sm-2'>
           <label>Deleted</label>
-          {/* <input
-            className='form-control'
-            placeholder='Deleted'
-            name='isDeleted'
-            value={values.isDeleted}
-            onChange={handleInputChange}
-          /> */}
           <select
             className='form-control'
             name='isDeleted'

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import LeaderlinetypeForm from './LeaderlinetypeForm'
+import CatchsizeForm from './CatchsizeForm'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
 
-const Leaderlinetype = () => {
+const Catchtype = () => {
   var [contactObjects, setContactObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist/leaderlineType').on('value', (snapshot) => {
+    firebaseDb.ref('hobbyist/catchType').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val(),
@@ -20,12 +20,12 @@ const Leaderlinetype = () => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist/leaderlineType').push(obj, (err) => {
+      firebaseDb.ref('hobbyist/catchType').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`hobbyist/leaderlineType/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`hobbyist/catchType/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,7 +33,7 @@ const Leaderlinetype = () => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/leaderlineType/${key}`).remove((err) => {
+      firebaseDb.ref(`hobbyist/catchType/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -179,13 +179,13 @@ const Leaderlinetype = () => {
                 <Link to='/braidlinetype'>
                   <a className='collapse-item'>Braidline Type</a>
                 </Link>
-                <a className='collapse-item active'>Leaderline Type</a>
+                <Link to='/leaderlinetype'>
+                  <a className='collapse-item'>Leaderline Type</a>
+                </Link>
                 <Link to='/environmenttype'>
                   <a className='collapse-item'>Environment Type</a>
                 </Link>
-                <Link to='/catchtype'>
-                  <a className='collapse-item'>Catch Type</a>
-                </Link>
+                <a className='collapse-item active'>Catch Type</a>
                 <Link to='/hobbyisttype'>
                   <a className='collapse-item'>Hobbyist Type</a>
                 </Link>
@@ -335,9 +335,7 @@ const Leaderlinetype = () => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>
-                Hobbyist (Leaderline Type)
-              </h1>
+              <h1 className='h3 mb-2 text-gray-800'>Hobbyist (Lure Type)</h1>
               <p className='mb-4'>Hobbyist Fishing Setup Data Entry</p>
               <Link to='/' class='btn btn-primary btn-icon-split btn-sm mb-3'>
                 <span class='icon text-white-50'>
@@ -345,9 +343,7 @@ const Leaderlinetype = () => {
                 </span>
                 <span class='text'>Back to Hobbyist</span>
               </Link>
-              <LeaderlinetypeForm
-                {...{ addOrEdit, currentId, contactObjects }}
-              />
+              <CatchsizeForm {...{ addOrEdit, currentId, contactObjects }} />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
@@ -368,6 +364,7 @@ const Leaderlinetype = () => {
                           <th>Actions</th>
                           <th>ID</th>
                           <th>Name</th>
+                          <th>Weight</th>
                           <th>isDeleted</th>
                         </tr>
                       </thead>
@@ -396,10 +393,10 @@ const Leaderlinetype = () => {
                                 </a>
                               </td>
                               <td>{id}</td>
-                              <td>{contactObjects[id].leaderlineTypeName}</td>
+                              <td>{contactObjects[id].catchTypeName}</td>
+                              <td>{contactObjects[id].catchTypeWeight}</td>
                               <td>
-                                {contactObjects[id].leaderlineTypeIsDeleted ==
-                                '0'
+                                {contactObjects[id].catchTypeIsDeleted == '0'
                                   ? 'False'
                                   : 'True'}
                               </td>
@@ -432,4 +429,4 @@ const Leaderlinetype = () => {
   )
 }
 
-export default Leaderlinetype
+export default Catchtype

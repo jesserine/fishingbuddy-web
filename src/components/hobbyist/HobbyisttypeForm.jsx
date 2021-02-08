@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
-const EnvironmenttypeForm = (props) => {
+const HobbyisttypeForm = (props) => {
   const initialFieldValues = {
-    fishingEnviTypeName: '',
-    fishingEnviTypeIsDeleted: '0',
+    hobbyistTypeName: '',
+    hobbyistTypeIsDeleted: '0',
   }
 
   var [values, setValues] = useState(initialFieldValues)
@@ -40,8 +40,8 @@ const EnvironmenttypeForm = (props) => {
           <label>Environment Type</label>
           <input
             className='form-control'
-            name='fishingEnviTypeName'
-            value={values.fishingEnviTypeName}
+            name='hobbyistTypeName'
+            value={values.hobbyistTypeName}
             onChange={handleInputChange}
             required
           />
@@ -51,8 +51,8 @@ const EnvironmenttypeForm = (props) => {
           <label>Deleted</label>
           <select
             className='form-control'
-            name='fishingEnviTypeIsDeleted'
-            value={values.fishingEnviTypeIsDeleted}
+            name='hobbyistTypeIsDeleted'
+            value={values.hobbyistTypeIsDeleted}
             onChange={handleInputChange}
           >
             <option value='0'>False</option>
@@ -72,4 +72,4 @@ const EnvironmenttypeForm = (props) => {
   )
 }
 
-export default EnvironmenttypeForm
+export default HobbyisttypeForm

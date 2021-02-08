@@ -5,27 +5,27 @@ import firebaseDb from '../firebase'
 import * as db from '../firestore'
 
 const Hobbyist = ({ user }) => {
-  var [contactObjects, setContactObjects] = useState({})
+  var [hobbyistObjects, setHobbyistObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist').on('value', (snapshot) => {
+    firebaseDb.ref('hobbyist/setup').on('value', (snapshot) => {
       if (snapshot.val() != null)
-        setContactObjects({
+        setHobbyistObjects({
           ...snapshot.val(),
         })
-      else setContactObjects({})
+      else setHobbyistObjects({})
     })
   }, [])
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist').push(obj, (err) => {
+      firebaseDb.ref('hobbyist/setup').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`hobbyist/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`hobbyist/setup/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,7 +33,7 @@ const Hobbyist = ({ user }) => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/${key}`).remove((err) => {
+      firebaseDb.ref(`hobbyist/setup/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -58,12 +58,12 @@ const Hobbyist = ({ user }) => {
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(contactObjects).map((id) => {
+                {Object.keys(hobbyistObjects).map((id) => {
                   return (
                     <tr key={id}>
-                      <td>{contactObjects[id].rodType}</td>
-                      <td>{contactObjects[id].rodBrand}</td>
-                      <td>{contactObjects[id].rodPrice}</td>
+                      <td>{hobbyistObjects[id].rodTypes}</td>
+                      <td>{hobbyistObjects[id].rodBrand}</td>
+                      <td>{hobbyistObjects[id].rodPrice}</td>
                       <td>
                         <a
                           className='btn text-primary'
@@ -184,6 +184,12 @@ const Hobbyist = ({ user }) => {
                 </Link>
                 <Link to='/environmenttype' user={user}>
                   <a className='collapse-item'>Environment Type</a>
+                </Link>
+                <Link to='/catchtype' user={user}>
+                  <a className='collapse-item'>Catch Type</a>
+                </Link>
+                <Link to='/hobbyisttype' user={user}>
+                  <a className='collapse-item'>Hobbyist Type</a>
                 </Link>
               </div>
             </div>
@@ -333,7 +339,7 @@ const Hobbyist = ({ user }) => {
               {/* Page Heading  */}
               <h1 className='h3 mb-2 text-gray-800'>Hobbyist</h1>
               <p className='mb-4'>Hobbyist Fishing Setup Data Entry</p>
-              <HobbyistForm {...{ addOrEdit, currentId, contactObjects }} />
+              <HobbyistForm {...{ addOrEdit, currentId, hobbyistObjects }} />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
@@ -351,12 +357,10 @@ const Hobbyist = ({ user }) => {
                     >
                       <thead>
                         <tr>
+                          <th>Actions</th>
                           <th>Rod Type</th>
                           <th>Rod Brand</th>
                           <th>Rod Price</th>
-                          <th>Lure Type</th>
-                          <th>Lure Brand</th>
-                          <th>Lure Price</th>
                           <th>Reel Type</th>
                           <th>Reel Brand</th>
                           <th>Reel Price</th>
@@ -366,47 +370,21 @@ const Hobbyist = ({ user }) => {
                           <th>Leaderline Type</th>
                           <th>Leaderline Brand</th>
                           <th>Leaderline Price</th>
-                          <th>Bait Type</th>
-                          <th>Bait Brand</th>
-                          <th>Bait Price</th>
-                          <th>Fishing Environment</th>
-                          <th>Type of Hobbyist</th>
+                          <th>Lure Type</th>
+                          <th>Lure Brand</th>
+                          <th>Lure Price</th>
+                          <th>Environment Type</th>
+                          <th>Catch Type</th>
+                          <th>Hobbyist Type</th>
                           <th>Total Price</th>
                           <th>Deleted</th>
-                          <th>Actions</th>
                         </tr>
                       </thead>
 
                       <tbody>
-                        {Object.keys(contactObjects).map((id) => {
+                        {Object.keys(hobbyistObjects).map((id) => {
                           return (
                             <tr key={id}>
-                              <td>{contactObjects[id].rodType}</td>
-                              <td>{contactObjects[id].rodBrand}</td>
-                              <td>{contactObjects[id].rodPrice}</td>
-                              <td>{contactObjects[id].lureType}</td>
-                              <td>{contactObjects[id].lureBrand}</td>
-                              <td>{contactObjects[id].lurePrice}</td>
-                              <td>{contactObjects[id].reelType}</td>
-                              <td>{contactObjects[id].reelBrand}</td>
-                              <td>{contactObjects[id].reelPrice}</td>
-                              <td>{contactObjects[id].braidlineType}</td>
-                              <td>{contactObjects[id].braidlineType}</td>
-                              <td>{contactObjects[id].braidlinePrice}</td>
-                              <td>{contactObjects[id].leaderlineType}</td>
-                              <td>{contactObjects[id].leaderlineBrand}</td>
-                              <td>{contactObjects[id].leaderlinePrice}</td>
-                              <td>{contactObjects[id].baitType}</td>
-                              <td>{contactObjects[id].baitBrand}</td>
-                              <td>{contactObjects[id].baitPrice}</td>
-                              <td>{contactObjects[id].fishingEnvironment}</td>
-                              <td>{contactObjects[id].typeOfHobbyist}</td>
-                              <td>{contactObjects[id].totalPrice}</td>
-                              <td>
-                                {contactObjects[id].isDeleted == '0'
-                                  ? 'No'
-                                  : 'Yes'}
-                              </td>
                               <td>
                                 <a
                                   onClick={() => {
@@ -425,6 +403,30 @@ const Hobbyist = ({ user }) => {
                                 >
                                   <i className='fas fa-trash'></i>
                                 </a>
+                              </td>
+                              <td>{hobbyistObjects[id].rodTypes}</td>
+                              <td>{hobbyistObjects[id].rodBrand}</td>
+                              <td>{hobbyistObjects[id].rodPrice}</td>
+                              <td>{hobbyistObjects[id].reelType}</td>
+                              <td>{hobbyistObjects[id].reelBrand}</td>
+                              <td>{hobbyistObjects[id].reelPrice}</td>
+                              <td>{hobbyistObjects[id].braidlineType}</td>
+                              <td>{hobbyistObjects[id].braidlineBrand}</td>
+                              <td>{hobbyistObjects[id].braidlinePrice}</td>
+                              <td>{hobbyistObjects[id].leaderlineType}</td>
+                              <td>{hobbyistObjects[id].leaderlineBrand}</td>
+                              <td>{hobbyistObjects[id].leaderlinePrice}</td>
+                              <td>{hobbyistObjects[id].lureType}</td>
+                              <td>{hobbyistObjects[id].lureBrand}</td>
+                              <td>{hobbyistObjects[id].lurePrice}</td>
+                              <td>{hobbyistObjects[id].environmentType}</td>
+                              <td>{hobbyistObjects[id].catchType}</td>
+                              <td>{hobbyistObjects[id].hobbyistType}</td>
+                              <td>{hobbyistObjects[id].totalPrice}</td>
+                              <td>
+                                {hobbyistObjects[id].isDeleted == '0'
+                                  ? 'No'
+                                  : 'Yes'}
                               </td>
                             </tr>
                           )

@@ -183,8 +183,11 @@ const Reeltype = () => {
                 <Link to='/environmenttype'>
                   <a className='collapse-item'>Environment Type</a>
                 </Link>
-                <Link to='/catchsize'>
-                  <a className='collapse-item'>Catch Size</a>
+                <Link to='/catchtype'>
+                  <a className='collapse-item'>Catch Type</a>
+                </Link>
+                <Link to='/hobbyisttype'>
+                  <a className='collapse-item'>Hobbyist Type</a>
                 </Link>
               </div>
             </div>

@@ -12,7 +12,8 @@ import Reeltype from './components/hobbyist/Reeltype'
 import Braidlinetype from './components/hobbyist/Braidlinetype'
 import Leaderlinetype from './components/hobbyist/Leaderlinetype'
 import Environmenttype from './components/hobbyist/Environmenttype'
-import Catchsize from './components/hobbyist/Catchsize'
+import Catchtype from './components/hobbyist/Catchtype'
+import Hobbyisttype from './components/hobbyist/Hobbyisttype'
 
 export const UserContext = React.createContext()
 
@@ -35,7 +36,8 @@ function AuthApp({ user }) {
           <Route exact path='/braidlinetype' component={Braidlinetype} />
           <Route exact path='/leaderlinetype' component={Leaderlinetype} />
           <Route exact path='/environmenttype' component={Environmenttype} />
-          <Route exact path='/catchsize' component={Catchsize} />
+          <Route exact path='/catchtype' component={Catchtype} />
+          <Route exact path='/hobbyisttype' component={Hobbyisttype} />
         </UserContext.Provider>
       </Switch>
     </BrowserRouter>
