@@ -165,9 +165,13 @@ const HobbyistForm = (props) => {
             {Object.keys(rodObjects).map((id) => {
               return (
                 <React.Fragment key={id}>
-                  <option value={rodObjects[id].rodTypeName}>
-                    {rodObjects[id].rodTypeName}
-                  </option>
+                  {rodObjects[id].rodTypeIsDeleted == '0' ? (
+                    <option value={rodObjects[id].rodTypeName}>
+                      {rodObjects[id].rodTypeName}
+                    </option>
+                  ) : (
+                    ''
+                  )}
                 </React.Fragment>
               )
             })}
@@ -210,9 +214,13 @@ const HobbyistForm = (props) => {
             {Object.keys(reelObjects).map((id) => {
               return (
                 <React.Fragment key={id}>
-                  <option value={reelObjects[id].reelTypeName}>
-                    {reelObjects[id].reelTypeName}
-                  </option>
+                  {reelObjects[id].reelTypeIsDeleted == '0' ? (
+                    <option value={reelObjects[id].reelTypeName}>
+                      {reelObjects[id].reelTypeName}
+                    </option>
+                  ) : (
+                    ''
+                  )}
                 </React.Fragment>
               )
             })}
@@ -253,9 +261,13 @@ const HobbyistForm = (props) => {
             {Object.keys(braidlineObjects).map((id) => {
               return (
                 <React.Fragment key={id}>
-                  <option value={braidlineObjects[id].braidlineTypeName}>
-                    {braidlineObjects[id].braidlineTypeName}
-                  </option>
+                  {braidlineObjects[id].braidlineTypeIsDeleted == '0' ? (
+                    <option value={braidlineObjects[id].braidlineTypeName}>
+                      {braidlineObjects[id].braidlineTypeName}
+                    </option>
+                  ) : (
+                    ''
+                  )}
                 </React.Fragment>
               )
             })}
@@ -296,9 +308,13 @@ const HobbyistForm = (props) => {
             {Object.keys(leaderlineObjects).map((id) => {
               return (
                 <React.Fragment key={id}>
-                  <option value={leaderlineObjects[id].leaderlineTypeName}>
-                    {leaderlineObjects[id].leaderlineTypeName}
-                  </option>
+                  {leaderlineObjects[id].leaderlineTypeIsDeleted == '0' ? (
+                    <option value={leaderlineObjects[id].leaderlineTypeName}>
+                      {leaderlineObjects[id].leaderlineTypeName}
+                    </option>
+                  ) : (
+                    ''
+                  )}
                 </React.Fragment>
               )
             })}
@@ -339,9 +355,13 @@ const HobbyistForm = (props) => {
             {Object.keys(lureObjects).map((id) => {
               return (
                 <React.Fragment key={id}>
-                  <option value={lureObjects[id].lureTypeName}>
-                    {lureObjects[id].lureTypeName}
-                  </option>
+                  {lureObjects[id].lureTypeIsDeleted == '0' ? (
+                    <option value={lureObjects[id].lureTypeName}>
+                      {lureObjects[id].lureTypeName}
+                    </option>
+                  ) : (
+                    ''
+                  )}
                 </React.Fragment>
               )
             })}
@@ -382,9 +402,13 @@ const HobbyistForm = (props) => {
             {Object.keys(environmentObjects).map((id) => {
               return (
                 <React.Fragment key={id}>
-                  <option value={environmentObjects[id].fishingEnviTypeName}>
-                    {environmentObjects[id].fishingEnviTypeName}
-                  </option>
+                  {environmentObjects[id].fishingEnviTypeIsDeleted == '0' ? (
+                    <option value={environmentObjects[id].fishingEnviTypeName}>
+                      {environmentObjects[id].fishingEnviTypeName}
+                    </option>
+                  ) : (
+                    ''
+                  )}
                 </React.Fragment>
               )
             })}
@@ -403,9 +427,13 @@ const HobbyistForm = (props) => {
             {Object.keys(catchObjects).map((id) => {
               return (
                 <React.Fragment key={id}>
-                  <option value={catchObjects[id].catchTypeName}>
-                    {catchObjects[id].catchTypeName}
-                  </option>
+                  {catchObjects[id].catchTypeIsDeleted == '0' ? (
+                    <option value={catchObjects[id].catchTypeName}>
+                      {catchObjects[id].catchTypeName}
+                    </option>
+                  ) : (
+                    ''
+                  )}
                 </React.Fragment>
               )
             })}
@@ -424,9 +452,13 @@ const HobbyistForm = (props) => {
             {Object.keys(hobbyistObjects).map((id) => {
               return (
                 <React.Fragment key={id}>
-                  <option value={hobbyistObjects[id].hobbyistTypeName}>
-                    {hobbyistObjects[id].hobbyistTypeName}
-                  </option>
+                  {hobbyistObjects[id].hobbyistTypeIsDeleted == '0' ? (
+                    <option value={hobbyistObjects[id].hobbyistTypeName}>
+                      {hobbyistObjects[id].hobbyistTypeName}
+                    </option>
+                  ) : (
+                    ''
+                  )}
                 </React.Fragment>
               )
             })}
