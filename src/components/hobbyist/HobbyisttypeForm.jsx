@@ -37,7 +37,7 @@ const HobbyisttypeForm = (props) => {
     <form autoComplete='off' onSubmit={handleFormSubmit}>
       <div className='form-group input-group row'>
         <div className='col-sm-10 mb-10 mb-sm-0'>
-          <label>Environment Type</label>
+          <label>Hobbyist Type</label>
           <input
             className='form-control'
             name='hobbyistTypeName'

@@ -18,4 +18,24 @@ var fireDb = !firebase.apps.length
   ? firebase.initializeApp(firebaseConfig)
   : firebase.app()
 
-export default fireDb.database()
+// let timestamp = '1452488445471'
+// let newDate = new Date(timestamp * 1000)
+// let Hours = newDate.getHours()
+// let Minutes = newDate.getMinutes()
+// let Year = newDate.getDate()
+// const HourComplete = Year + '-' + Hours + ':' + Minutes
+// let formatedTime = HourComplete
+var today = new Date()
+var dd = String(today.getDate()).padStart(2, '0')
+var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+var yyyy = today.getFullYear()
+var hour = today.getHours()
+var minutes = today.getMinutes()
+
+today = mm + '/' + dd + '/' + yyyy + ' ' + hour + ':' + minutes
+console.log(today)
+
+const storage = fireDb.storage()
+const database = fireDb.database()
+// export default fireDb.database()
+export { storage, database as default }

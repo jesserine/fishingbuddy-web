@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import RodtypeForm from './RodtypeForm'
+import SocialcatchForm from './SocialcatchForm'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
 
-const Rodtype = () => {
+const Socialcatch = () => {
   var [contactObjects, setContactObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist/rodTypes').on('value', (snapshot) => {
+    firebaseDb.ref('socialcatch').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val(),
@@ -20,12 +20,12 @@ const Rodtype = () => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist/rodTypes').push(obj, (err) => {
+      firebaseDb.ref('socialcatch').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`hobbyist/rodTypes/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`socialcatch/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,7 +33,7 @@ const Rodtype = () => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/rodTypes/${key}`).remove((err) => {
+      firebaseDb.ref(`socialcatch/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -135,11 +135,11 @@ const Rodtype = () => {
           {/* Divider */}
           <hr className='sidebar-divider my-0' />
 
-          <li className='nav-item'>
-            <Link className='nav-link' to='/socialcatch'>
+          <li className='nav-item active'>
+            <a className='nav-link'>
               <i className='fas fa-fw fa-fish'></i>
               <span>Social Catch</span>
-            </Link>
+            </a>
           </li>
 
           <hr className='sidebar-divider' />
@@ -157,7 +157,7 @@ const Rodtype = () => {
               </a>
             </li> */}
 
-          <li className='nav-item active'>
+          <li className='nav-item'>
             <a
               href='/'
               className='nav-link'
@@ -176,14 +176,16 @@ const Rodtype = () => {
               data-parent='#accordionSidebar'
             >
               <div className='bg-white py-2 collapse-inner rounded'>
-                <Link to='luretype'>
+                <Link to='/luretype'>
                   <a className='collapse-item'>Lure Type</a>
                 </Link>
-                <a className='collapse-item active'>Rod Type</a>
-                <Link to='reeltype'>
+                <Link to='/rodtype'>
+                  <a className='collapse-item'>Rod Type</a>
+                </Link>
+                <Link to='/reeltype'>
                   <a className='collapse-item'>Reel Type</a>
                 </Link>
-                <Link to='braidlinetype'>
+                <Link to='/braidlinetype'>
                   <a className='collapse-item'>Braidline Type</a>
                 </Link>
                 <Link to='/leaderlinetype'>
@@ -344,20 +346,21 @@ const Rodtype = () => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>Hobbyist (Rod Type)</h1>
-              <p className='mb-4'>Hobbyist Fishing Setup Data Entry</p>
+              <h1 className='h3 mb-2 text-gray-800'>Social Catch</h1>
+              <p className='mb-4'>Data entry for social catch.</p>
+
               <Link to='/' class='btn btn-primary btn-icon-split btn-sm mb-3'>
                 <span class='icon text-white-50'>
                   <i class='fas fa-arrow-right'></i>
                 </span>
                 <span class='text'>Back to Hobbyist</span>
               </Link>
-              <RodtypeForm {...{ addOrEdit, currentId, contactObjects }} />
+              <SocialcatchForm {...{ addOrEdit, currentId, contactObjects }} />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
                   <h6 className='m-0 font-weight-bold text-primary'>
-                    Hobbyist List
+                    Social Catch List
                   </h6>
                 </div>
                 <div className='card-body'>
@@ -373,6 +376,14 @@ const Rodtype = () => {
                           <th>Actions</th>
                           <th>ID</th>
                           <th>Name</th>
+                          <th>Description</th>
+                          <th>Image</th>
+                          <th>Timestamp</th>
+                          <th>Ships From</th>
+                          <th>Sell Catch</th>
+                          <th>User ID</th>
+                          <th>Price per Kilo</th>
+                          <th>Stocks Quantity</th>
                           <th>isDeleted</th>
                         </tr>
                       </thead>
@@ -401,9 +412,23 @@ const Rodtype = () => {
                                 </a>
                               </td>
                               <td>{id}</td>
-                              <td>{contactObjects[id].rodTypeName}</td>
+                              <td>{contactObjects[id].fishCatchName}</td>
+                              <td>{contactObjects[id].fishCatchDescription}</td>
+                              <td style={{ width: '1px' }}>
+                                <img src={contactObjects[id].fishCatchImage} />
+                              </td>
+                              <td>{contactObjects[id].fishCatchTimestamp}</td>
+                              <td>{contactObjects[id].shipsFrom}</td>
                               <td>
-                                {contactObjects[id].rodTypeIsDeleted == '0'
+                                {contactObjects[id].sellCatch == '0'
+                                  ? 'No'
+                                  : 'Yes'}
+                              </td>
+                              <td>{contactObjects[id].userID}</td>
+                              <td>{contactObjects[id].pricePerKilo}</td>
+                              <td>{contactObjects[id].stocksQuantity}</td>
+                              <td>
+                                {contactObjects[id].isDeleted == '0'
                                   ? 'False'
                                   : 'True'}
                               </td>
@@ -436,4 +461,4 @@ const Rodtype = () => {
   )
 }
 
-export default Rodtype
+export default Socialcatch

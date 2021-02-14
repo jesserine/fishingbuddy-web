@@ -133,6 +133,15 @@ const Hobbyist = ({ user }) => {
           {/* Nav Item - Utilities Collapse Menu  */}
 
           {/* Divider */}
+          <hr className='sidebar-divider my-0' />
+
+          <li className='nav-item'>
+            <Link className='nav-link' to='/socialcatch' user={user}>
+              <i className='fas fa-fw fa-fish'></i>
+              <span>Social Catch</span>
+            </Link>
+          </li>
+
           <hr className='sidebar-divider' />
 
           {/* Heading  */}
