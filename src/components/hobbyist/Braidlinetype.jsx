@@ -144,6 +144,56 @@ const Braidlinetype = () => {
 
           <hr className='sidebar-divider' />
 
+        {/* Heading  */}
+        <div className='sidebar-heading'>Discover Page</div>
+
+          {/* Nav Item - Pages Collapse Menu  */}
+
+          {/* Nav Item - Tables  */}
+          {/* <li className='nav-item active'>
+              <a className='nav-link' href='tables.html'>
+              <i className='fas fa-fw fa-table'></i>
+              <span>Hobbyist</span>
+              </a>
+          </li> */}
+
+          <li className='nav-item active'>
+          <a
+              href='/'
+              className='nav-link'
+              data-toggle='collapse'
+              data-target='#collapseTwo'
+              aria-expanded='true'
+              aria-controls='collapseTwo'
+          >
+              <i className='fas fa-fw fa-table'></i>
+              <span>Discover</span>
+          </a>
+          <div
+              id='collapseTwo'
+              className='collapse show'
+              aria-labelledby='headingTwo'
+              data-parent='#accordionSidebar'
+          >
+              <div className='bg-white py-2 collapse-inner rounded'>
+              <Link to='/discoverfishlist'>
+                  <a className='collapse-item'>Fish List</a>
+              </Link>
+              <Link to='/fishingregulations'>
+                  <a className='collapse-item'>Fishing Regulations</a>
+              </Link>
+              <Link to='/fishingtechniques'>
+                  <a className='collapse-item'>Fishing Techniques</a>
+              </Link>
+              <Link to='/fishinghotspots'>
+                  <a className='collapse-item'>Fishing Hotspots</a>
+              </Link>
+              </div>
+          </div>
+          </li>
+
+            <hr className='sidebar-divider' />
+
           {/* Heading  */}
           <div className='sidebar-heading'>All Hobbyist</div>
 

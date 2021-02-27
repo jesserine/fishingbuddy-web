@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import CatchsizeForm from './CatchsizeForm'
+import DiscoverFishListForm from './DiscoverFishListForm'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
 
-const Catchtype = () => {
+const DiscoverFishList = () => {
   var [contactObjects, setContactObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist/catchType').on('value', (snapshot) => {
+    firebaseDb.ref('discover/fishlist').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val(),
@@ -20,12 +20,12 @@ const Catchtype = () => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist/catchType').push(obj, (err) => {
+      firebaseDb.ref('discover/fishlist').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`hobbyist/catchType/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`discover/fishlist/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,7 +33,7 @@ const Catchtype = () => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/catchType/${key}`).remove((err) => {
+      firebaseDb.ref(`discover/fishlist/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -136,63 +136,63 @@ const Catchtype = () => {
           <hr className='sidebar-divider my-0' />
 
           <li className='nav-item'>
-            <Link className='nav-link' to='/socialcatch'>
+            <a className='nav-link' href='/socialcatch'>
               <i className='fas fa-fw fa-fish'></i>
               <span>Social Catch</span>
-            </Link>
+            </a>
           </li>
 
           <hr className='sidebar-divider' />
 
-          {/* Heading  */}
-          <div className='sidebar-heading'>Discover Page</div>
+        {/* Heading  */}
+        <div className='sidebar-heading'>Discover Page</div>
 
-          {/* Nav Item - Pages Collapse Menu  */}
+        {/* Nav Item - Pages Collapse Menu  */}
 
-          {/* Nav Item - Tables  */}
-          {/* <li className='nav-item active'>
-              <a className='nav-link' href='tables.html'>
-              <i className='fas fa-fw fa-table'></i>
-              <span>Hobbyist</span>
-              </a>
-          </li> */}
+        {/* Nav Item - Tables  */}
+        {/* <li className='nav-item active'>
+            <a className='nav-link' href='tables.html'>
+            <i className='fas fa-fw fa-table'></i>
+            <span>Hobbyist</span>
+            </a>
+        </li> */}
 
-          <li className='nav-item active'>
-          <a
-              href='/'
-              className='nav-link'
-              data-toggle='collapse'
-              data-target='#collapseTwo'
-              aria-expanded='true'
-              aria-controls='collapseTwo'
-          >
-              <i className='fas fa-fw fa-table'></i>
-              <span>Discover</span>
-          </a>
-          <div
-              id='collapseTwo'
-              className='collapse show'
-              aria-labelledby='headingTwo'
-              data-parent='#accordionSidebar'
-          >
-              <div className='bg-white py-2 collapse-inner rounded'>
-              <Link to='/discoverfishlist'>
-                  <a className='collapse-item'>Fish List</a>
-              </Link>
-              <Link to='/fishingregulations'>
-                  <a className='collapse-item'>Fishing Regulations</a>
-              </Link>
-              <Link to='/fishingtechniques'>
-                  <a className='collapse-item'>Fishing Techniques</a>
-              </Link>
-              <Link to='/fishinghotspots'>
-                  <a className='collapse-item'>Fishing Hotspots</a>
-              </Link>
-              </div>
-          </div>
-          </li>
+        <li className='nav-item active'>
+        <a
+            href='/'
+            className='nav-link'
+            data-toggle='collapse'
+            data-target='#collapseTwo'
+            aria-expanded='true'
+            aria-controls='collapseTwo'
+        >
+            <i className='fas fa-fw fa-table'></i>
+            <span>Discover</span>
+        </a>
+        <div
+            id='collapseTwo'
+            className='collapse show'
+            aria-labelledby='headingTwo'
+            data-parent='#accordionSidebar'
+        >
+            <div className='bg-white py-2 collapse-inner rounded'>
+            <Link to='/discoverfishlist'>
+                <a className='collapse-item'>Fish List</a>
+            </Link>
+            <Link to='/fishingregulations'>
+                <a className='collapse-item'>Fishing Regulations</a>
+            </Link>
+            <Link to='/fishingtechniques'>
+                <a className='collapse-item'>Fishing Techniques</a>
+            </Link>
+            <Link to='/fishinghotspots'>
+                <a className='collapse-item'>Fishing Hotspots</a>
+            </Link>
+            </div>
+        </div>
+        </li>
 
-            <hr className='sidebar-divider' />
+          <hr className='sidebar-divider' />
 
           {/* Heading  */}
           <div className='sidebar-heading'>All Hobbyist</div>
@@ -207,7 +207,7 @@ const Catchtype = () => {
               </a>
             </li> */}
 
-          <li className='nav-item active'>
+          <li className='nav-item'>
             <a
               href='/'
               className='nav-link'
@@ -244,7 +244,9 @@ const Catchtype = () => {
                 <Link to='/environmenttype'>
                   <a className='collapse-item'>Environment Type</a>
                 </Link>
-                <a className='collapse-item active'>Catch Type</a>
+                <Link to='/catchtype'>
+                  <a className='collapse-item'>Catch Type</a>
+                </Link>
                 <Link to='/hobbyisttype'>
                   <a className='collapse-item'>Hobbyist Type</a>
                 </Link>
@@ -394,20 +396,15 @@ const Catchtype = () => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>Hobbyist (Lure Type)</h1>
-              <p className='mb-4'>Hobbyist Fishing Setup Data Entry</p>
-              <Link to='/' class='btn btn-primary btn-icon-split btn-sm mb-3'>
-                <span class='icon text-white-50'>
-                  <i class='fas fa-arrow-right'></i>
-                </span>
-                <span class='text'>Back to Hobbyist</span>
-              </Link>
-              <CatchsizeForm {...{ addOrEdit, currentId, contactObjects }} />
+              <h1 className='h3 mb-2 text-gray-800'>Discover Fish List</h1>
+              <p className='mb-4'>Data entry for fish list on mobile app discover tab.</p>
+
+              <DiscoverFishListForm {...{ addOrEdit, currentId, contactObjects }} />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
                   <h6 className='m-0 font-weight-bold text-primary'>
-                    Hobbyist List
+                    Discover Fish List
                   </h6>
                 </div>
                 <div className='card-body'>
@@ -422,8 +419,13 @@ const Catchtype = () => {
                         <tr>
                           <th>Actions</th>
                           <th>ID</th>
-                          <th>Name</th>
-                          <th>Weight</th>
+                          <th>Common Name</th>
+                          <th>Scientific Name</th>
+                          <th>Image</th>
+                          <th>Description</th>
+                          <th>Season/Months available</th>
+                          <th>IUCN Status</th>
+                          <th>Threat to Human</th>
                           <th>isDeleted</th>
                         </tr>
                       </thead>
@@ -452,10 +454,21 @@ const Catchtype = () => {
                                 </a>
                               </td>
                               <td>{id}</td>
-                              <td>{contactObjects[id].catchTypeName}</td>
-                              <td>{contactObjects[id].catchTypeWeight}</td>
+                              <td>{contactObjects[id].fishCommonName}</td>
+                              <td>{contactObjects[id].fishScientificName}</td>
+                              <td style={{ width: '1px' }}>
+                                <img src={contactObjects[id].fishImage} />
+                              </td>
+                              <td>{contactObjects[id].fishDescription}</td>
+                              <td>{contactObjects[id].fishAvailability}</td>
+                              <td>{contactObjects[id].fishIucnStatus}</td>
                               <td>
-                                {contactObjects[id].catchTypeIsDeleted == '0'
+                                {contactObjects[id].fishThreatToHuman == '0'
+                                  ? 'No'
+                                  : 'Yes'}
+                              </td>
+                              <td>
+                                {contactObjects[id].isDeleted == '0'
                                   ? 'False'
                                   : 'True'}
                               </td>
@@ -488,4 +501,4 @@ const Catchtype = () => {
   )
 }
 
-export default Catchtype
+export default DiscoverFishList
