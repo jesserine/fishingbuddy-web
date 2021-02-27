@@ -15,6 +15,8 @@ import Environmenttype from './components/hobbyist/Environmenttype'
 import Catchtype from './components/hobbyist/Catchtype'
 import Hobbyisttype from './components/hobbyist/Hobbyisttype'
 import Socialcatch from './components/social/Socialcatch'
+import DiscoverFishList from './components/discover/DiscoverFishList'
+import FishingTechniques from './components/discover/FishingTechniques'
 
 export const UserContext = React.createContext()
 
@@ -40,6 +42,8 @@ function AuthApp({ user }) {
           <Route exact path='/catchtype' component={Catchtype} />
           <Route exact path='/hobbyisttype' component={Hobbyisttype} />
           <Route exact path='/socialcatch' component={Socialcatch} />
+          <Route exact path='/discoverfishlist' component={DiscoverFishList} />
+          <Route exact path='/fishingtechniques' component={FishingTechniques} />
         </UserContext.Provider>
       </Switch>
     </BrowserRouter>
