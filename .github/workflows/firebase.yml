@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 15.x]
+        node-version: [14.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -27,14 +27,15 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install -g yarn
     - name: yarn install, build and test
-    - run: |
+      run: |
         yarn install
         yarn build
-    - name: Archibe Build
-      uses: actions/upload-artifacts@v2
+    - name: Archive Build
+      uses: actions/upload-artifact@v2
       with:
         name: build
         path: build
+        
   deploy:
     name: Deploy
     needs: build
@@ -42,7 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Download Build
-      - uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v2
         with:
           name: build
           path: build
@@ -52,4 +53,3 @@ jobs:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-    
