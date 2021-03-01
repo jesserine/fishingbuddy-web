@@ -17,6 +17,11 @@ import Hobbyisttype from './components/hobbyist/Hobbyisttype'
 import Socialcatch from './components/social/Socialcatch'
 import DiscoverFishList from './components/discover/DiscoverFishList'
 import FishingTechniques from './components/discover/FishingTechniques'
+import FishingHotspots from './components/discover/FishingHotspots'
+import FishingRegulations from './components/discover/FishingRegulations'
+import EndangeredSpecie from './components/discover/EndangeredSpecie'
+import CatchSizeRules from './components/discover/CatchSizeRules'
+import BfarRegulations from './components/discover/BfarRegulations'
 
 export const UserContext = React.createContext()
 
@@ -44,6 +49,11 @@ function AuthApp({ user }) {
           <Route exact path='/socialcatch' component={Socialcatch} />
           <Route exact path='/discoverfishlist' component={DiscoverFishList} />
           <Route exact path='/fishingtechniques' component={FishingTechniques} />
+          <Route exact path='/fishinghotspots' component={FishingHotspots} />
+          <Route exact path='/fishingregulations' component={FishingRegulations} />
+          <Route exact path='/fishingregulations/endangeredspecies' component={EndangeredSpecie} />
+          <Route exact path='/fishingregulations/catchsizerules' component={CatchSizeRules} />
+          <Route exact path='/fishingregulations/bfarregulations' component={BfarRegulations} />
         </UserContext.Provider>
       </Switch>
     </BrowserRouter>
