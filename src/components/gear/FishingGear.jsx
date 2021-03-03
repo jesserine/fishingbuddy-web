@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import RodtypeForm from './RodtypeForm'
+import FishingGearForm from './FishingGearForm'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
 
-const Rodtype = () => {
+const FishingGear = () => {
   var [contactObjects, setContactObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist/rodTypes').on('value', (snapshot) => {
+    firebaseDb.ref('products').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val(),
@@ -20,12 +20,12 @@ const Rodtype = () => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist/rodTypes').push(obj, (err) => {
+      firebaseDb.ref('products').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`hobbyist/rodTypes/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`products/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,10 +33,21 @@ const Rodtype = () => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/rodTypes/${key}`).remove((err) => {
+      firebaseDb.ref(`products/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
+    }
+  }
+
+  function SwitchCase(props) {
+    switch(props.value) {
+      case '0': return 'Rod';
+      case '1': return 'Reel';
+      case '2': return 'Braidline';
+      case '3': return 'Leaderline';
+      case '4': return 'Lure';
+      case '5': return 'Net';
     }
   }
 
@@ -131,16 +142,18 @@ const Rodtype = () => {
           </li>
 
           {/* Nav Item - Utilities Collapse Menu  */}
+          {/* Divider */}
           <hr className='sidebar-divider my-0' />
 
-          <li className='nav-item'>
-            <Link className='nav-link' to='/fishinggears'>
+          <li className='nav-item active'>
+            <a className='nav-link'>
               <i className='fas fa-fw fa-fish'></i>
               <span>Gear Products</span>
-            </Link>
+            </a>
           </li>
-
+          
           {/* Divider */}
+
           <hr className='sidebar-divider my-0' />
 
           <li className='nav-item'>
@@ -150,8 +163,8 @@ const Rodtype = () => {
             </Link>
           </li>
 
-          <hr className='sidebar-divider' />
 
+          <hr className='sidebar-divider' />
 
           {/* Heading  */}
           <div className='sidebar-heading'>Discover Page</div>
@@ -166,7 +179,7 @@ const Rodtype = () => {
               </a>
           </li> */}
 
-          <li className='nav-item active'>
+          <li className='nav-item'>
           <a
               href='/'
               className='nav-link'
@@ -216,7 +229,7 @@ const Rodtype = () => {
               </a>
             </li> */}
 
-          <li className='nav-item active'>
+          <li className='nav-item'>
             <a
               href='/'
               className='nav-link'
@@ -235,14 +248,16 @@ const Rodtype = () => {
               data-parent='#accordionSidebar'
             >
               <div className='bg-white py-2 collapse-inner rounded'>
-                <Link to='luretype'>
+                <Link to='/luretype'>
                   <a className='collapse-item'>Lure Type</a>
                 </Link>
-                <a className='collapse-item active'>Rod Type</a>
-                <Link to='reeltype'>
+                <Link to='/rodtype'>
+                  <a className='collapse-item'>Rod Type</a>
+                </Link>
+                <Link to='/reeltype'>
                   <a className='collapse-item'>Reel Type</a>
                 </Link>
-                <Link to='braidlinetype'>
+                <Link to='/braidlinetype'>
                   <a className='collapse-item'>Braidline Type</a>
                 </Link>
                 <Link to='/leaderlinetype'>
@@ -403,20 +418,15 @@ const Rodtype = () => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>Hobbyist (Rod Type)</h1>
-              <p className='mb-4'>Hobbyist Fishing Setup Data Entry</p>
-              <Link to='/' class='btn btn-primary btn-icon-split btn-sm mb-3'>
-                <span class='icon text-white-50'>
-                  <i class='fas fa-arrow-right'></i>
-                </span>
-                <span class='text'>Back to Hobbyist</span>
-              </Link>
-              <RodtypeForm {...{ addOrEdit, currentId, contactObjects }} />
+              <h1 className='h3 mb-2 text-gray-800'>Products - Fishing Gear</h1>
+              <p className='mb-4'>Data entry for fishing gear products.</p>
+
+              <FishingGearForm {...{ addOrEdit, currentId, contactObjects }} />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
                   <h6 className='m-0 font-weight-bold text-primary'>
-                    Hobbyist List
+                    Fishing Gear Products List
                   </h6>
                 </div>
                 <div className='card-body'>
@@ -431,7 +441,10 @@ const Rodtype = () => {
                         <tr>
                           <th>Actions</th>
                           <th>ID</th>
-                          <th>Name</th>
+                          <th>Product Name</th>
+                          <th>Product Type</th>
+                          <th>Product Brand</th>
+                          <th>Product Price</th>
                           <th>isDeleted</th>
                         </tr>
                       </thead>
@@ -460,11 +473,19 @@ const Rodtype = () => {
                                 </a>
                               </td>
                               <td>{id}</td>
-                              <td>{contactObjects[id].rodTypeName}</td>
+                              <td>{contactObjects[id].productName}</td>
                               <td>
-                                {contactObjects[id].rodTypeIsDeleted == '0'
+                                {<SwitchCase value={contactObjects[id].productType}/>
+                              }
+                              </td>
+                              <td>{contactObjects[id].productBrand}</td>
+                              <td>{contactObjects[id].productPrice}</td>
+                              <td>
+                                {
+                                contactObjects[id].isDeleted == '0' 
                                   ? 'False'
-                                  : 'True'}
+                                  : 'True'
+                                }
                               </td>
                             </tr>
                           )
@@ -495,4 +516,4 @@ const Rodtype = () => {
   )
 }
 
-export default Rodtype
+export default FishingGear
