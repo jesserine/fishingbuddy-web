@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import DiscoverFishListForm from './DiscoverFishListForm'
+import FishingHotspotsForm from './FishingHotspotsForm'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
 
@@ -399,7 +399,7 @@ const FishingHotspots = () => {
               <h1 className='h3 mb-2 text-gray-800'>Discover - Fishing Hotspots</h1>
               <p className='mb-4'>Data entry for fishing hotpots on mobile app discover tab.</p>
 
-              <DiscoverFishListForm {...{ addOrEdit, currentId, contactObjects }} />
+              <FishingHotspotsForm {...{ addOrEdit, currentId, contactObjects }} />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
@@ -419,13 +419,12 @@ const FishingHotspots = () => {
                         <tr>
                           <th>Actions</th>
                           <th>ID</th>
-                          <th>Common Name</th>
-                          <th>Scientific Name</th>
+                          <th>Name</th>
+                          <th>Address</th>
                           <th>Image</th>
-                          <th>Description</th>
-                          <th>Season/Months available</th>
-                          <th>IUCN Status</th>
-                          <th>Threat to Human</th>
+                          <th>Place Description</th>
+                          <th>Availability Schedule</th>
+                          <th>Hotspot Fee</th>
                           <th>isDeleted</th>
                         </tr>
                       </thead>
@@ -454,19 +453,14 @@ const FishingHotspots = () => {
                                 </a>
                               </td>
                               <td>{id}</td>
-                              <td>{contactObjects[id].fishCommonName}</td>
-                              <td>{contactObjects[id].fishScientificName}</td>
+                              <td>{contactObjects[id].hotspotName}</td>
+                              <td>{contactObjects[id].hotspotAddress}</td>
                               <td style={{ width: '1px' }}>
-                                <img src={contactObjects[id].fishImage} />
+                                <img src={contactObjects[id].hotstpotImage} />
                               </td>
-                              <td>{contactObjects[id].fishDescription}</td>
-                              <td>{contactObjects[id].fishAvailability}</td>
-                              <td>{contactObjects[id].fishIucnStatus}</td>
-                              <td>
-                                {contactObjects[id].fishThreatToHuman == '0'
-                                  ? 'No'
-                                  : 'Yes'}
-                              </td>
+                              <td>{contactObjects[id].hotspotDescription}</td>
+                              <td>{contactObjects[id].hotspotAvailability}</td>
+                              <td>{contactObjects[id].hotspotFee}</td>
                               <td>
                                 {contactObjects[id].isDeleted == '0'
                                   ? 'False'
