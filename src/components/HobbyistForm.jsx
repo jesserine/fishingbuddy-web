@@ -94,18 +94,23 @@ const HobbyistForm = (props) => {
 
   const initialFieldValues = {
     rodTypes: '',
+    rodName: '',
     rodBrand: '',
     rodPrice: '0',
     reelType: '',
+    reelName: '',
     reelBrand: '',
     reelPrice: '0',
     braidlineType: '',
+    braidlineName: '',
     braidlineBrand: '',
     braidlinePrice: '0',
     leaderlineType: '',
+    leaderlineName: '',
     leaderlineBrand: '',
     leaderlinePrice: '0',
     lureType: '',
+    lureName: '',
     lureBrand: '',
     lurePrice: '0',
     environmentType: '',
@@ -152,7 +157,7 @@ const HobbyistForm = (props) => {
     // <></>
     <form autoComplete='off' onSubmit={handleFormSubmit}>
       <div className='form-group input-group row'>
-        <div className='col-sm-4 mb-3 mb-sm-0'>
+        <div className='col-sm-3 mb-3 mb-sm-0'>
           <label>Rod Type</label>
           <select
             className='form-control'
@@ -177,7 +182,17 @@ const HobbyistForm = (props) => {
             })}
           </select>
         </div>
-        <div className='col-sm-4'>
+        <div className='col-sm-3'>
+          <label>Rod Name</label>
+          <input
+            className='form-control'
+            name='rodName'
+            value={values.rodName}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className='col-sm-3'>
           <label>Rod Brand</label>
           <input
             className='form-control'
@@ -187,7 +202,7 @@ const HobbyistForm = (props) => {
             required
           />
         </div>
-        <div className='col-sm-4'>
+        <div className='col-sm-3'>
           <label>Rod Price</label>
           <input
             className='form-control'
@@ -201,7 +216,7 @@ const HobbyistForm = (props) => {
       </div>
 
       <div className='form-group input-group row'>
-        <div className='col-sm-4 mb-4 mb-sm-0'>
+        <div className='col-sm-3 mb-4 mb-sm-0'>
           <label>Reel Type</label>
           <select
             className='form-control'
@@ -226,7 +241,16 @@ const HobbyistForm = (props) => {
             })}
           </select>
         </div>
-        <div className='col-sm-4'>
+        <div className='col-sm-3'>
+          <label>Reel Name</label>
+          <input
+            className='form-control'
+            name='reelName'
+            value={values.reelName}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className='col-sm-3'>
           <label>Reel Brand</label>
           <input
             className='form-control'
@@ -235,7 +259,7 @@ const HobbyistForm = (props) => {
             onChange={handleInputChange}
           />
         </div>
-        <div className='col-sm-4'>
+        <div className='col-sm-3'>
           <label>Reel Price</label>
           <input
             className='form-control'
@@ -248,7 +272,7 @@ const HobbyistForm = (props) => {
       </div>
 
       <div className='form-group input-group row'>
-        <div className='col-sm-4 mb-3 mb-sm-0'>
+        <div className='col-sm-3 mb-3 mb-sm-0'>
           <label>Braidline Type</label>
           <select
             className='form-control'
@@ -273,7 +297,16 @@ const HobbyistForm = (props) => {
             })}
           </select>
         </div>
-        <div className='col-sm-4'>
+        <div className='col-sm-3'>
+          <label>Braidline Name</label>
+          <input
+            className='form-control'
+            name='braidlineName'
+            value={values.braidlineName}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className='col-sm-3'>
           <label>Braidline Brand</label>
           <input
             className='form-control'
@@ -282,7 +315,7 @@ const HobbyistForm = (props) => {
             onChange={handleInputChange}
           />
         </div>
-        <div className='col-sm-4'>
+        <div className='col-sm-3'>
           <label>Braidline Price</label>
           <input
             className='form-control'
@@ -295,7 +328,7 @@ const HobbyistForm = (props) => {
       </div>
 
       <div className='form-group input-group row'>
-        <div className='col-sm-4 mb-3 mb-sm-0'>
+        <div className='col-sm-3 mb-3 mb-sm-0'>
           <label>Leaderline Type</label>
           <select
             className='form-control'
@@ -320,7 +353,16 @@ const HobbyistForm = (props) => {
             })}
           </select>
         </div>
-        <div className='col-sm-4'>
+        <div className='col-sm-3'>
+          <label>Leaderline Name</label>
+          <input
+            className='form-control'
+            name='leaderlineName'
+            value={values.leaderlineName}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className='col-sm-3'>
           <label>Leaderline Brand</label>
           <input
             className='form-control'
@@ -329,7 +371,7 @@ const HobbyistForm = (props) => {
             onChange={handleInputChange}
           />
         </div>
-        <div className='col-sm-4'>
+        <div className='col-sm-3'>
           <label>Leaderline Price</label>
           <input
             className='form-control'
@@ -342,7 +384,7 @@ const HobbyistForm = (props) => {
       </div>
 
       <div className='form-group input-group row'>
-        <div className='col-sm-4 mb-3 mb-sm-0'>
+        <div className='col-sm-3 mb-3 mb-sm-0'>
           <label>Lure Type</label>
           <select
             className='form-control'
@@ -367,7 +409,16 @@ const HobbyistForm = (props) => {
             })}
           </select>
         </div>
-        <div className='col-sm-4'>
+        <div className='col-sm-3'>
+          <label>Lure Name</label>
+          <input
+            className='form-control'
+            name='lureName'
+            value={values.lureName}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className='col-sm-3'>
           <label>Lure Brand</label>
           <input
             className='form-control'
@@ -376,7 +427,7 @@ const HobbyistForm = (props) => {
             onChange={handleInputChange}
           />
         </div>
-        <div className='col-sm-4'>
+        <div className='col-sm-3'>
           <label>Lure Price</label>
           <input
             className='form-control'
