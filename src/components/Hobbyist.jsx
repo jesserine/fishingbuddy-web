@@ -9,7 +9,7 @@ const Hobbyist = ({ user }) => {
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist/setup').on('value', (snapshot) => {
+    firebaseDb.ref('gearsetup').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setHobbyistObjects({
           ...snapshot.val(),
@@ -20,12 +20,12 @@ const Hobbyist = ({ user }) => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist/setup').push(obj, (err) => {
+      firebaseDb.ref('gearsetup').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`hobbyist/setup/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`gearsetup/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,7 +33,7 @@ const Hobbyist = ({ user }) => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/setup/${key}`).remove((err) => {
+      firebaseDb.ref(`gearsetup/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -42,7 +42,7 @@ const Hobbyist = ({ user }) => {
 
   return (
     <>
-      <div
+      {/* <div
         style={{ display: 'none' }}
         className='lex flex-col text-center w-full mb-12'
       >
@@ -89,7 +89,7 @@ const Hobbyist = ({ user }) => {
             </table>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Page Wrapper */}
       <div id='wrapper'>
@@ -406,7 +406,7 @@ const Hobbyist = ({ user }) => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>Hobbyist</h1>
+              <h1 className='h3 mb-2 text-gray-800'>Hobbyist Gear Setup</h1>
               <p className='mb-4'>Hobbyist Fishing Setup Data Entry</p>
               <HobbyistForm {...{ addOrEdit, currentId, hobbyistObjects }} />
               {/* DataTales Example  */}
@@ -428,23 +428,36 @@ const Hobbyist = ({ user }) => {
                         <tr>
                           <th>Actions</th>
                           <th>Rod Type</th>
+                          <th>Rod Name</th>
                           <th>Rod Brand</th>
                           <th>Rod Price</th>
+                          <th>Rod Index</th>
                           <th>Reel Type</th>
+                          <th>Reel Name</th>
                           <th>Reel Brand</th>
                           <th>Reel Price</th>
+                          <th>Reel Index</th>
                           <th>Braidline Type</th>
+                          <th>Braidline Name</th>
                           <th>Braidline Brand</th>
                           <th>Braidline Price</th>
+                          <th>Braidline Index</th>
                           <th>Leaderline Type</th>
+                          <th>Leaderline Name</th>
                           <th>Leaderline Brand</th>
                           <th>Leaderline Price</th>
+                          <th>Leaderline Index</th>
                           <th>Lure Type</th>
+                          <th>Lure Name</th>
                           <th>Lure Brand</th>
                           <th>Lure Price</th>
+                          <th>Lure Index</th>
                           <th>Environment Type</th>
+                          <th>Environment Index</th>
                           <th>Catch Type</th>
+                          <th>Catch Index</th>
                           <th>Hobbyist Type</th>
+                          <th>Hobbyist Index</th>
                           <th>Total Price</th>
                           <th>Deleted</th>
                         </tr>
@@ -474,23 +487,36 @@ const Hobbyist = ({ user }) => {
                                 </a>
                               </td>
                               <td>{hobbyistObjects[id].rodTypes}</td>
+                              <td>{hobbyistObjects[id].rodName}</td>
                               <td>{hobbyistObjects[id].rodBrand}</td>
                               <td>{hobbyistObjects[id].rodPrice}</td>
+                              <td>{hobbyistObjects[id].rodTypeIndex}</td>
                               <td>{hobbyistObjects[id].reelType}</td>
+                              <td>{hobbyistObjects[id].reelName}</td>
                               <td>{hobbyistObjects[id].reelBrand}</td>
                               <td>{hobbyistObjects[id].reelPrice}</td>
+                              <td>{hobbyistObjects[id].reelTypeIndex}</td>
                               <td>{hobbyistObjects[id].braidlineType}</td>
+                              <td>{hobbyistObjects[id].braidlineName}</td>
                               <td>{hobbyistObjects[id].braidlineBrand}</td>
                               <td>{hobbyistObjects[id].braidlinePrice}</td>
+                              <td>{hobbyistObjects[id].braidlineIndex}</td>
                               <td>{hobbyistObjects[id].leaderlineType}</td>
+                              <td>{hobbyistObjects[id].leaderlineName}</td>
                               <td>{hobbyistObjects[id].leaderlineBrand}</td>
                               <td>{hobbyistObjects[id].leaderlinePrice}</td>
+                              <td>{hobbyistObjects[id].leaderlineIndex}</td>
                               <td>{hobbyistObjects[id].lureType}</td>
+                              <td>{hobbyistObjects[id].lureName}</td>
                               <td>{hobbyistObjects[id].lureBrand}</td>
                               <td>{hobbyistObjects[id].lurePrice}</td>
+                              <td>{hobbyistObjects[id].lureIndex}</td>
                               <td>{hobbyistObjects[id].environmentType}</td>
+                              <td>{hobbyistObjects[id].environmentTypeIndex}</td>
                               <td>{hobbyistObjects[id].catchType}</td>
+                              <td>{hobbyistObjects[id].catchTypeIndex}</td>
                               <td>{hobbyistObjects[id].hobbyistType}</td>
+                              <td>{hobbyistObjects[id].hobbyistTypeIndex}</td>
                               <td>{hobbyistObjects[id].totalPrice}</td>
                               <td>
                                 {hobbyistObjects[id].isDeleted == '0'

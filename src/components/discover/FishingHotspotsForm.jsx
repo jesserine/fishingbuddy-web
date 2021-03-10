@@ -5,20 +5,19 @@ import * as db from '../../firestore'
 // import 'firebase/storage'
 import { storage } from '../../firebase'
 import { v4 as uuid } from 'uuid'
-import GmapSearchbox from '../shared/GmapSearchbox'
+// import GmapSearchbox from '../shared/GmapSearchbox'
 
 // const defaultImageSrc = '/img/image_placeholder.png'
 
 const FishingHotspotsForm = (props) => {
   const initialFieldValues = {
-    fishCommonName: '',
-    fishScientificName: '',
-    fishDescription: '',
-    fishAvailability: '',
-    fishThreatToHuman: '0',
-    fishIucnStatus: '',
+    hotspotName: '',
+    hotspotAddress: '',
+    hotspotDescription: '',
+    hotspotAvailability: '',
+    hotspotFee: '0',
     isDeleted: '0',
-    fishImage: '',
+    hotstpotImage: '',
     // imageFile: null,
   }
 
@@ -68,9 +67,9 @@ const FishingHotspotsForm = (props) => {
   }
 
   if (typeof imageUrl !== 'undefined' && imageUrl != null) {
-    values.fishImage = imageUrl
+    values.hotstpotImage = imageUrl
   } else {
-    values.fishImage
+    values.hotstpotImage
   }
 
   const handleFormSubmit = (e) => {
@@ -79,45 +78,45 @@ const FishingHotspotsForm = (props) => {
     window.location.reload(false)
   }
 
-  const enabled = values.fishImage.length > 0
+  const enabled = values.hotstpotImage.length > 0
 
   return (
     // <></>
     <div>
 
-      <GmapSearchbox {...{ addOrEdit, currentId, contactObjects }} />
+      {/* <GmapSearchbox {...{ addOrEdit, currentId, contactObjects }} /> */}
     
     <form autoComplete='off' onSubmit={handleFormSubmit}>
       <div className='form-group input-group row'>
         <div className='col-sm-4 mb-4 mb-sm-0'>
-          <label>Fish Common Name</label>
+          <label> Name</label>
           <input
             className='form-control'
-            name='fishCommonName'
-            value={values.fishCommonName}
+            name='hotspotName'
+            value={values.hotspotName}
             onChange={handleInputChange}
             required
           />
         </div>
 
         <div className='col-sm-4 mb-4 mb-sm-0'>
-          <label>Fish Scientific Name</label>
+          <label>Address</label>
           <input
             className='form-control'
-            name='fishScientificName'
-            value={values.fishScientificName}
+            name='hotspotAddress'
+            value={values.hotspotAddress}
             onChange={handleInputChange}
             required
           />
         </div>
 
         <div className='col-sm-4 mb-4 mb-sm-0'>
-          <label className='mr-10'>Fish Image</label>
+          <label className='mr-10'>Image</label>
           <input type='file' accept='image/*' onChange={readImages} />
           <input
             className='form-control'
-            name='fishImage'
-            value={values.fishImage}
+            name='hotstpotImage'
+            value={values.hotstpotImage}
             onChange={handleInputChange}
             disabled
           />
@@ -134,47 +133,34 @@ const FishingHotspotsForm = (props) => {
 
       <div className='form-group input-group row'>
         <div className='col-sm-4 mb-4 mb-sm-0'>
-          <label>Fish Description</label>
+          <label>Description</label>
           <input
             className='form-control'
-            name='fishDescription'
-            value={values.fishDescription}
+            name='hotspotDescription'
+            value={values.hotspotDescription}
             onChange={handleInputChange}
           />
         </div>
 
         <div className='col-sm-4 mb-4 mb-sm-0'>
-          <label>Fish Season/Month Available</label>
+          <label>Hotspot Availability</label>
           <input
             className='form-control'
-            name='fishAvailability'
-            value={values.fishAvailability}
+            name='hotspotAvailability'
+            value={values.hotspotAvailability}
             onChange={handleInputChange}
             required
           />
-        </div>
-
-        <div className='col-sm-4 mb-4 mb-sm-0'>
-          <label>Is this fish threat to human?</label>
-          <select
-            className='form-control'
-            name='fishThreatToHuman'
-            value={values.fishThreatToHuman}
-            onChange={handleInputChange}
-          >
-            <option value='0'>No</option>
-            <option value='1'>Yes</option>
-          </select>
         </div>
       </div>
 
       <div className='form-group input-group row'>
         <div className='col-sm-4 mb-4 mb-sm-0'>
-          <label>Fish IUCN Status</label>
+          <label>Fee</label>
           <input
             className='form-control'
-            name='fishIucnStatus'
-            value={values.fishIucnStatus}
+            name='hotspotFee'
+            value={values.hotspotFee}
             onChange={handleInputChange}
             required
           />
