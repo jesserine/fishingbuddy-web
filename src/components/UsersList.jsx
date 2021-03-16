@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import CatchsizeForm from './CatchsizeForm'
-import firebaseDb from '../../firebase'
-import * as db from '../../firestore'
+import HobbyistForm from './HobbyistForm'
+import firebaseDb from '../firebase'
+import * as db from '../firestore'
 
-const Catchsize = () => {
-  var [contactObjects, setContactObjects] = useState({})
+const UsersList = () => {
+  var [userObjects, setUserObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist/catchSize').on('value', (snapshot) => {
+    firebaseDb.ref('user').on('value', (snapshot) => {
       if (snapshot.val() != null)
-        setContactObjects({
+        setUserObjects({
           ...snapshot.val(),
         })
-      else setContactObjects({})
+      else setUserObjects({})
     })
   }, [])
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist/catchSize').push(obj, (err) => {
+      firebaseDb.ref('user').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`hobbyist/catchSize/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`user/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,7 +33,7 @@ const Catchsize = () => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/catchSize/${key}`).remove((err) => {
+      firebaseDb.ref(`user/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -42,54 +42,6 @@ const Catchsize = () => {
 
   return (
     <>
-      <div
-        style={{ display: 'none' }}
-        className='lex flex-col text-center w-full mb-12'
-      >
-        <div className='row'>
-          <div className='col-md-12'>
-            <table className='table table-border table-stripped'>
-              <thead className='thead-light'>
-                <tr>
-                  <th>Rod Type</th>
-                  <th>Rod Brand</th>
-                  <th>Rod Price</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.keys(contactObjects).map((id) => {
-                  return (
-                    <tr key={id}>
-                      <td>{contactObjects[id].rodType}</td>
-                      <td>{contactObjects[id].rodBrand}</td>
-                      <td>{contactObjects[id].rodPrice}</td>
-                      <td>
-                        <a
-                          className='btn text-primary'
-                          onClick={() => {
-                            setCurrentId(id)
-                          }}
-                        >
-                          <i className='fas fa-pencil-alt'></i>
-                        </a>
-                        <a
-                          className='btn text-danger'
-                          onClick={() => {
-                            onDelete(id)
-                          }}
-                        >
-                          <i className='fas fa-trash-alt'></i>
-                        </a>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
 
       {/* Page Wrapper */}
       <div id='wrapper'>
@@ -124,16 +76,85 @@ const Catchsize = () => {
           <div className='sidebar-heading'>All Users</div>
 
           <li className='nav-item'>
-            <Link className='nav-link' to='/users'>
+            <a className='nav-link' href='tables.html'>
               <i className='fas fa-fw fa-users'></i>
               <span>Users</span>
-            </Link>
+            </a>
           </li>
 
           {/* Nav Item - Utilities Collapse Menu  */}
 
+          <hr className='sidebar-divider my-0' />
+
+          <li className='nav-item'>
+            <Link className='nav-link' to='/fishinggears'>
+              <i className='fas fa-fw fa-fish'></i>
+              <span>Gear Products</span>
+            </Link>
+          </li>
+
           {/* Divider */}
+          <hr className='sidebar-divider my-0' />
+
+          <li className='nav-item'>
+            <Link className='nav-link' to='/socialcatch'>
+              <i className='fas fa-fw fa-fish'></i>
+              <span>Social Catch</span>
+            </Link>
+          </li>
+
           <hr className='sidebar-divider' />
+
+
+          {/* Heading  */}
+          <div className='sidebar-heading'>Discover Page</div>
+
+          {/* Nav Item - Pages Collapse Menu  */}
+
+          {/* Nav Item - Tables  */}
+          {/* <li className='nav-item active'>
+              <a className='nav-link' href='tables.html'>
+              <i className='fas fa-fw fa-table'></i>
+              <span>Hobbyist</span>
+              </a>
+          </li> */}
+
+          <li className='nav-item'>
+          <a
+              href='/'
+              className='nav-link'
+              data-toggle='collapse'
+              data-target='#collapseTwo'
+              aria-expanded='true'
+              aria-controls='collapseTwo'
+          >
+              <i className='fas fa-fw fa-table'></i>
+              <span>Discover</span>
+          </a>
+          <div
+              id='collapseTwo'
+              className='collapse show'
+              aria-labelledby='headingTwo'
+              data-parent='#accordionSidebar'
+          >
+              <div className='bg-white py-2 collapse-inner rounded'>
+              <Link to='/discoverfishlist'>
+                  <a className='collapse-item'>Fish List</a>
+              </Link>
+              <Link to='/fishingregulations'>
+                  <a className='collapse-item'>Fishing Regulations</a>
+              </Link>
+              <Link to='/fishingtechniques'>
+                  <a className='collapse-item'>Fishing Techniques</a>
+              </Link>
+              <Link to='/fishinghotspots'>
+                  <a className='collapse-item'>Fishing Hotspots</a>
+              </Link>
+              </div>
+          </div>
+          </li>
+
+            <hr className='sidebar-divider' />
 
           {/* Heading  */}
           <div className='sidebar-heading'>All Hobbyist</div>
@@ -142,16 +163,16 @@ const Catchsize = () => {
 
           {/* Nav Item - Tables  */}
           {/* <li className='nav-item active'>
-              <a className='nav-link' href='tables.html'>
-                <i className='fas fa-fw fa-table'></i>
-                <span>Hobbyist</span>
-              </a>
-            </li> */}
+            <a className='nav-link' href='tables.html'>
+              <i className='fas fa-fw fa-table'></i>
+              <span>Hobbyist</span>
+            </a>
+          </li> */}
 
           <li className='nav-item active'>
             <a
-              href='/'
               className='nav-link'
+              href='#'
               data-toggle='collapse'
               data-target='#collapseTwo'
               aria-expanded='true'
@@ -185,7 +206,12 @@ const Catchsize = () => {
                 <Link to='/environmenttype'>
                   <a className='collapse-item'>Environment Type</a>
                 </Link>
-                <a className='collapse-item active'>Catch Size</a>
+                <Link to='/catchtype'>
+                  <a className='collapse-item'>Catch Type</a>
+                </Link>
+                <Link to='/hobbyisttype'>
+                  <a className='collapse-item'>Hobbyist Type</a>
+                </Link>
               </div>
             </div>
           </li>
@@ -289,7 +315,7 @@ const Catchsize = () => {
                     aria-expanded='false'
                   >
                     <span className='mr-2 d-none d-lg-inline text-gray-600 small'>
-                      {/* {user.displayName.toUpperCase()} */}
+                      
                     </span>
                     <img
                       className='img-profile rounded-circle'
@@ -332,20 +358,14 @@ const Catchsize = () => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>Hobbyist (Lure Type)</h1>
-              <p className='mb-4'>Hobbyist Fishing Setup Data Entry</p>
-              <Link to='/' class='btn btn-primary btn-icon-split btn-sm mb-3'>
-                <span class='icon text-white-50'>
-                  <i class='fas fa-arrow-right'></i>
-                </span>
-                <span class='text'>Back to Hobbyist</span>
-              </Link>
-              <CatchsizeForm {...{ addOrEdit, currentId, contactObjects }} />
+              <h1 className='h3 mb-2 text-gray-800'>Users List</h1>
+              <p className='mb-4'>List of Fishing Buddy's Users</p>
+        {/* <HobbyistForm {...{ addOrEdit, currentId, hobbyistObjects }} /> */}
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
                   <h6 className='m-0 font-weight-bold text-primary'>
-                    Hobbyist List
+                    Users List
                   </h6>
                 </div>
                 <div className='card-body'>
@@ -359,15 +379,23 @@ const Catchsize = () => {
                       <thead>
                         <tr>
                           <th>Actions</th>
-                          <th>ID</th>
-                          <th>Name</th>
-                          <th>Weight</th>
-                          <th>isDeleted</th>
+                          <th>Display Name</th>
+                          <th>First Name</th>
+                          <th>Email</th>
+                          <th>isOnboarded</th>
+                          <th>Cover Photo</th>
+                          <th>Profile Picture</th>
+                          <th>Provider</th>
+                          <th>Fishing Experience</th>
+                          <th>Title</th>
+                          <th>Type</th>
+                          <th>Created Date</th>
+                          <th>Last Logged Date</th>
                         </tr>
                       </thead>
 
                       <tbody>
-                        {Object.keys(contactObjects).map((id) => {
+                        {Object.keys(userObjects).map((id) => {
                           return (
                             <tr key={id}>
                               <td>
@@ -389,14 +417,30 @@ const Catchsize = () => {
                                   <i className='fas fa-trash'></i>
                                 </a>
                               </td>
-                              <td>{id}</td>
-                              <td>{contactObjects[id].catchSizeName}</td>
-                              <td>{contactObjects[id].catchSizeWeight}</td>
+                              <td>{userObjects[id].displayName}</td>
+                              <td>{userObjects[id].firstName}</td>
+                              <td>{userObjects[id].email}</td>
                               <td>
-                                {contactObjects[id].catchSizeIsDeleted == '0'
+                                {userObjects[id].isOnboarded == '0'
                                   ? 'False'
                                   : 'True'}
                               </td>
+                              <td style={{ width: '1px' }}>
+                                <img src={userObjects[id].coverPhoto} />
+                              </td>
+                              <td style={{ width: '1px' }}>
+                                <img src={userObjects[id].profilePicture} />
+                              </td>
+                              <td>{userObjects[id].provider}</td>
+                              <td>
+                                {userObjects[id].selectedBeginner == '0'
+                                  ? 'Beginner'
+                                  : 'Expert'}
+                              </td>
+                              <td>{userObjects[id].title}</td>
+                              <td>{userObjects[id].type}</td>
+                              <td>{Date(userObjects[id].createdDate)}</td>
+                              <td>{Date(userObjects[id].lastLoggedInDate)}</td>
                             </tr>
                           )
                         })}
@@ -426,4 +470,4 @@ const Catchsize = () => {
   )
 }
 
-export default Catchsize
+export default UsersList

@@ -124,10 +124,10 @@ const Socialcatch = () => {
           <div className='sidebar-heading'>All Users</div>
 
           <li className='nav-item'>
-            <a className='nav-link' href='tables.html'>
+            <Link className='nav-link' to='/users'>
               <i className='fas fa-fw fa-users'></i>
               <span>Users</span>
-            </a>
+            </Link>
           </li>
 
           {/* Nav Item - Utilities Collapse Menu  */}
@@ -442,6 +442,10 @@ const Socialcatch = () => {
                           <th>User ID</th>
                           <th>Price per Kilo</th>
                           <th>Stocks Quantity</th>
+                          <th>For Tinuwa</th>
+                          <th>For Fried</th>
+                          <th>For Sinugba</th>
+                          <th>For Kilawin</th>
                           <th>isDeleted</th>
                         </tr>
                       </thead>
@@ -475,7 +479,8 @@ const Socialcatch = () => {
                               <td style={{ width: '1px' }}>
                                 <img src={contactObjects[id].fishCatchImage} />
                               </td>
-                              <td>{contactObjects[id].fishCatchTimestamp}</td>
+                              <td>{new Date(contactObjects[id].fishCatchTimestamp).toLocaleDateString("en-US")} 
+                                {new Date(contactObjects[id].fishCatchTimestamp).toLocaleTimeString("en-US") }</td>
                               <td>{contactObjects[id].shipsFrom}</td>
                               <td>
                                 {contactObjects[id].sellCatch == '0'
@@ -485,6 +490,18 @@ const Socialcatch = () => {
                               <td>{contactObjects[id].userID}</td>
                               <td>{contactObjects[id].pricePerKilo}</td>
                               <td>{contactObjects[id].stocksQuantity}</td>
+                              <td>{contactObjects[id].forTinuwa== '0'
+                                  ? 'No'
+                                  : 'Yes'}</td>
+                              <td>{contactObjects[id].forFried== '0'
+                                  ? 'No'
+                                  : 'Yes'}</td>
+                              <td>{contactObjects[id].forSinugba== '0'
+                                  ? 'No'
+                                  : 'Yes'}</td>
+                              <td>{contactObjects[id].forKilawin== '0'
+                                  ? 'No'
+                                  : 'Yes'}</td>
                               <td>
                                 {contactObjects[id].isDeleted == '0'
                                   ? 'False'

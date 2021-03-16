@@ -111,10 +111,10 @@ const Catchtype = () => {
 
           {/* Nav Item - Dashboard  */}
           <li className='nav-item'>
-            <a className='nav-link' href='index.html'>
-              <i className='fas fa-fw fa-tachometer-alt'></i>
-              <span>Dashboard</span>
-            </a>
+            <Link className='nav-link' to='/users'>
+              <i className='fas fa-fw fa-users'></i>
+              <span>Users</span>
+            </Link>
           </li>
 
           {/* Divider  */}

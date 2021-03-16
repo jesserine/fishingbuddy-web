@@ -20,6 +20,10 @@ const SocialcatchForm = (props) => {
     stocksQuantity: '',
     isDeleted: '0',
     fishCatchImage: '',
+    forTinuwa: '0',
+    forFried: '0',
+    forKilawin: '0',
+    forSinugba: '0'
     // imageFile: null,
   }
 
@@ -56,34 +60,6 @@ const SocialcatchForm = (props) => {
     })
   }
 
-  // const showPreview = (e) => {
-  //   if (e.target.files && e.target.files[0]) {
-  //     let imageFile = e.target.files[0]
-  //     const reader = new FileReader()
-  //     reader.onload = (x) => {
-  //       setValues({
-  //         ...values,
-  //         imageFile,
-  //         fishCatchImage: x.target.result,
-  //       })
-  //     }
-  //     reader.readAsDataURL(imageFile)
-  //   } else {
-  //     setValues({
-  //       ...values,
-  //       imageFile: null,
-  //       fishCatchImage: defaultImageSrc,
-  //     })
-  //   }
-  // }
-
-  // function handleChange(e) {
-  //   setFile(e.target.files[0])
-  // }
-
-  // const [file, setFile] = useState(null)
-  // const [url, setURL] = useState('')
-
   const [imageUrl, setImageUrl] = useState()
   const readImages = async (e) => {
     const file = e.target.files[0]
@@ -116,21 +92,6 @@ const SocialcatchForm = (props) => {
     props.addOrEdit(values)
     window.location.reload(false)
   }
-
-  // function handleUpload(e) {
-  //   e.preventDefault()
-  //   const uploadTask = storage.ref(`/images/${file.name}`).put(file)
-  //   uploadTask.on('state_changed', console.log, console.error, () => {
-  //     storage
-  //       .ref('images')
-  //       .child(file.name)
-  //       .getDownloadURL()
-  //       .then((url) => {
-  //         setFile(null)
-  //         setURL(url)
-  //       })
-  //   })
-  // }
 
   const enabled = values.fishCatchImage.length > 0
 
@@ -182,15 +143,6 @@ const SocialcatchForm = (props) => {
       </div>
 
       <div className='form-group input-group row'>
-        <div className='col-sm-4 mb-4 mb-sm-0'>
-          <label>Fish Catch Timestamp</label>
-          <input
-            className='form-control'
-            name='fishCatchTimestamp'
-            value={values.fishCatchTimestamp}
-            onChange={handleInputChange}
-          />
-        </div>
 
         <div className='col-sm-4 mb-4 mb-sm-0'>
           <label>Ships From</label>
@@ -214,6 +166,19 @@ const SocialcatchForm = (props) => {
             <option value='0'>No</option>
             <option value='1'>Yes</option>
           </select>
+        </div>
+
+
+        <div className='col-sm-4 mb-2 mb-sm-0'>
+          <label>Stocks Quantity</label>
+          <input
+            className='form-control'
+            type='number'
+            name='stocksQuantity'
+            value={values.stocksQuantity}
+            onChange={handleInputChange}
+            required
+          />
         </div>
       </div>
 
@@ -241,19 +206,8 @@ const SocialcatchForm = (props) => {
           />
         </div>
 
-        <div className='col-sm-2 mb-2 mb-sm-0'>
-          <label>Stocks Quantity</label>
-          <input
-            className='form-control'
-            type='number'
-            name='stocksQuantity'
-            value={values.stocksQuantity}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
 
-        <div className='col-sm-2 mb-2 mb-sm-0'>
+        <div className='col-sm-4 mb-2 mb-sm-0'>
           <label>Deleted</label>
           <select
             className='form-control'
@@ -264,6 +218,71 @@ const SocialcatchForm = (props) => {
             <option value='0'>False</option>
             <option value='1'>True</option>
           </select>
+        </div>
+      </div>
+      <div className='form-group input-group row'>
+      <div className='col-sm-12 mb-2 mb-sm-0'>
+          <label>Best way to cook the fish?</label>
+        </div>
+      </div>
+      <div className='form-group input-group row'>
+        <div className='col-sm-2 mb-2 mb-sm-0'>
+          <label>Tinuwa</label>
+          <select
+            className='form-control'
+            name='forTinuwa'
+            value={values.forTinuwa}
+            onChange={handleInputChange}
+          >
+            <option value='0'>False</option>
+            <option value='1'>True</option>
+          </select>
+        </div>
+        <div className='col-sm-2 mb-2 mb-sm-0'>
+          <label>Sinugba</label>
+          <select
+            className='form-control'
+            name='forSinugba'
+            value={values.forSinugba}
+            onChange={handleInputChange}
+          >
+            <option value='0'>False</option>
+            <option value='1'>True</option>
+          </select>
+        </div>
+        <div className='col-sm-2 mb-2 mb-sm-0'>
+          <label>Fried</label>
+          <select
+            className='form-control'
+            name='forFried'
+            value={values.forFried}
+            onChange={handleInputChange}
+          >
+            <option value='0'>False</option>
+            <option value='1'>True</option>
+          </select>
+        </div>
+        <div className='col-sm-2 mb-2 mb-sm-0'>
+          <label>Kilawin</label>
+          <select
+            className='form-control'
+            name='forKilawin'
+            value={values.forKilawin}
+            onChange={handleInputChange}
+          >
+            <option value='0'>False</option>
+            <option value='1'>True</option>
+          </select>
+        </div>
+        <div className='col-sm-4 mb-4 mb-sm-0'>
+          <label hidden>Fish Catch Timestamp</label>
+          <input
+            className='form-control'
+            name='fishCatchTimestamp'
+            value={values.fishCatchTimestamp}
+            onChange={values.fishCatchTimestamp = new Date().getTime()}
+            hidden
+          />
         </div>
       </div>
 
