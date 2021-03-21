@@ -43,54 +43,6 @@ const BfarNews = () => {
 
   return (
     <>
-      <div
-        style={{ display: 'none' }}
-        className='lex flex-col text-center w-full mb-12'
-      >
-        <div className='row'>
-          <div className='col-md-12'>
-            <table className='table table-border table-stripped'>
-              <thead className='thead-light'>
-                <tr>
-                  <th>Rod Type</th>
-                  <th>Rod Brand</th>
-                  <th>Rod Price</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.keys(contactObjects).map((id) => {
-                  return (
-                    <tr key={id}>
-                      <td>{contactObjects[id].rodType}</td>
-                      <td>{contactObjects[id].rodBrand}</td>
-                      <td>{contactObjects[id].rodPrice}</td>
-                      <td>
-                        <a
-                          className='btn text-primary'
-                          onClick={() => {
-                            setCurrentId(id)
-                          }}
-                        >
-                          <i className='fas fa-pencil-alt'></i>
-                        </a>
-                        <a
-                          className='btn text-danger'
-                          onClick={() => {
-                            onDelete(id)
-                          }}
-                        >
-                          <i className='fas fa-trash-alt'></i>
-                        </a>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
 
       {/* Page Wrapper */}
       <div id='wrapper'>
@@ -147,16 +99,6 @@ const BfarNews = () => {
 
         {/* Heading  */}
         <div className='sidebar-heading'>Discover Page</div>
-
-        {/* Nav Item - Pages Collapse Menu  */}
-
-        {/* Nav Item - Tables  */}
-        {/* <li className='nav-item active'>
-            <a className='nav-link' href='tables.html'>
-            <i className='fas fa-fw fa-table'></i>
-            <span>Hobbyist</span>
-            </a>
-        </li> */}
 
         <li className='nav-item active'>
         <a

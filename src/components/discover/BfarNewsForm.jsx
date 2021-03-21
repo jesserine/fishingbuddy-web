@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
-// import 'firebase/database'
-// import 'firebase/storage'
 import { storage } from '../../firebase'
 import { v4 as uuid } from 'uuid'
-
-// const defaultImageSrc = '/img/image_placeholder.png'
 
 const BfarNewsForm = (props) => {
   const initialFieldValues = {
