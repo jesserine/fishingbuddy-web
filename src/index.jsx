@@ -24,6 +24,7 @@ import CatchSizeRules from './components/discover/CatchSizeRules'
 import BfarRegulations from './components/discover/BfarRegulations'
 import FishingGear from './components/gear/FishingGear'
 import UsersList from './components/UsersList'
+import BfarNews from './components/discover/BfarNews'
 
 export const UserContext = React.createContext()
 
@@ -58,6 +59,7 @@ function AuthApp({ user }) {
           <Route exact path='/fishingregulations/bfarregulations' component={BfarRegulations} />
           <Route exact path='/fishinggears' component={FishingGear} />
           <Route exact path='/users' component={UsersList} />
+          <Route exact path='/news' component={BfarNews} />
 
         </UserContext.Provider>
       </Switch>
