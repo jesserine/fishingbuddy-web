@@ -155,16 +155,6 @@ const Socialcatch = () => {
           {/* Heading  */}
           <div className='sidebar-heading'>Discover Page</div>
 
-          {/* Nav Item - Pages Collapse Menu  */}
-
-          {/* Nav Item - Tables  */}
-          {/* <li className='nav-item active'>
-              <a className='nav-link' href='tables.html'>
-              <i className='fas fa-fw fa-table'></i>
-              <span>Hobbyist</span>
-              </a>
-          </li> */}
-
           <li className='nav-item'>
           <a
               href='/'
