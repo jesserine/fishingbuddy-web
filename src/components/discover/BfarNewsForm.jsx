@@ -78,7 +78,54 @@ const BfarNewsForm = (props) => {
   return (
     // <></>
     <form autoComplete='off' onSubmit={handleFormSubmit}>
-      {/* add here */}
+      <div className='form-group input-group row'>
+        <div className='col-sm-4 mb-4 mb-sm-0'>
+          <label>News Title</label>
+          <input
+            className='form-control'
+            name='newsTitle'
+            value={values.newsTitle}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className='col-sm-4 mb-4 mb-sm-0'>
+          <label className='mr-10'>News Image</label>
+          <input type='file' accept='image/*' onChange={readImages} />
+          <input
+            className='form-control'
+            name='newsImage'
+            value={values.newsImage}
+            onChange={handleInputChange}
+            disabled
+          />
+        </div>
+      </div>
+
+      <div className='form-group input-group row'>
+        <div className='col-sm-4 mb-4 mb-sm-0'>
+          <label>Source</label>
+          <input
+            className='form-control'
+            name='newsSource'
+            value={values.newsSource}
+            onChange={handleInputChange}
+          />
+        </div>
+        
+        <div className='col-sm-4 mb-2 mb-sm-0'>
+          <label>Deleted</label>
+          <select
+            className='form-control'
+            name='isDeleted'
+            value={values.isDeleted}
+            onChange={handleInputChange}
+          >
+            <option value='0'>False</option>
+            <option value='1'>True</option>
+          </select>
+        </div>
+      </div>
 
       <div className='form-group'>
         <input
