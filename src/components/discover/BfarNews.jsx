@@ -449,17 +449,7 @@ const BfarNews = () => {
                                   <i className='fas fa-trash'></i>
                                 </a>
                               </td>
-                              <td>{id}</td>
-                              <td>{contactObjects[id].newsTitle}</td>
-                              <td style={{ width: '1px' }}>
-                                <img src={contactObjects[id].newsImage} />
-                              </td>
-                              <td>{contactObjects[id].newsSource}</td>
-                              <td>
-                                {contactObjects[id].isDeleted == '0'
-                                  ? 'False'
-                                  : 'True'}
-                              </td>
+                              {/* add here */}
                             </tr>
                           )
                         })}
