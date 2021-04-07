@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
-// import 'firebase/database'
-// import 'firebase/storage'
 import { storage } from '../../firebase'
 import { v4 as uuid } from 'uuid'
 
-// const defaultImageSrc = '/img/image_placeholder.png'
 
 const SocialcatchForm = (props) => {
   const initialFieldValues = {
@@ -24,7 +21,6 @@ const SocialcatchForm = (props) => {
     forFried: '0',
     forKilawin: '0',
     forSinugba: '0'
-    // imageFile: null,
   }
 
   var [values, setValues] = useState(initialFieldValues)
@@ -78,15 +74,6 @@ const SocialcatchForm = (props) => {
     values.fishCatchImage
   }
 
-  // console.log(imageUrl)
-
-  // if (imageUrl) {
-  //   values.fishCatchImage = imageUrl
-  // } else {
-  //   values.fishCatchImage
-  // }
-  // values.fishCatchImage = imageUrl
-
   const handleFormSubmit = (e) => {
     e.preventDefault()
     props.addOrEdit(values)
@@ -131,14 +118,6 @@ const SocialcatchForm = (props) => {
             onChange={handleInputChange}
             disabled
           />
-
-          {
-            // <img
-            //   className='mb-4'
-            //   src={URL.createObjectURL(values.fishCatchImage)}
-            // />
-            // <img src={values.fishCatchImage} />
-          }
         </div>
       </div>
 
