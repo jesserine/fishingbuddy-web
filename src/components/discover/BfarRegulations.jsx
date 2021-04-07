@@ -126,10 +126,10 @@ const BfarRegulations = () => {
           <div className='sidebar-heading'>All Users</div>
 
           <li className='nav-item'>
-            <a className='nav-link' href='tables.html'>
+          <Link className='nav-link' to='/users'>
               <i className='fas fa-fw fa-users'></i>
               <span>Users</span>
-            </a>
+            </Link>
           </li>
 
           {/* Nav Item - Utilities Collapse Menu  */}

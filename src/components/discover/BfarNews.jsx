@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import CatchsizeForm from './CatchsizeForm'
+import DiscoverFishListForm from './DiscoverFishListForm'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
+import BfarNewsForm from './BfarNewsForm'
 
-const Catchsize = () => {
+const BfarNews = () => {
   var [contactObjects, setContactObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('hobbyist/catchSize').on('value', (snapshot) => {
+    firebaseDb.ref('discover/news').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val(),
@@ -20,12 +21,12 @@ const Catchsize = () => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('hobbyist/catchSize').push(obj, (err) => {
+      firebaseDb.ref('discover/news').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`hobbyist/catchSize/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`discover/news/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,7 +34,7 @@ const Catchsize = () => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`hobbyist/catchSize/${key}`).remove((err) => {
+      firebaseDb.ref(`discover/news/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -42,54 +43,6 @@ const Catchsize = () => {
 
   return (
     <>
-      <div
-        style={{ display: 'none' }}
-        className='lex flex-col text-center w-full mb-12'
-      >
-        <div className='row'>
-          <div className='col-md-12'>
-            <table className='table table-border table-stripped'>
-              <thead className='thead-light'>
-                <tr>
-                  <th>Rod Type</th>
-                  <th>Rod Brand</th>
-                  <th>Rod Price</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.keys(contactObjects).map((id) => {
-                  return (
-                    <tr key={id}>
-                      <td>{contactObjects[id].rodType}</td>
-                      <td>{contactObjects[id].rodBrand}</td>
-                      <td>{contactObjects[id].rodPrice}</td>
-                      <td>
-                        <a
-                          className='btn text-primary'
-                          onClick={() => {
-                            setCurrentId(id)
-                          }}
-                        >
-                          <i className='fas fa-pencil-alt'></i>
-                        </a>
-                        <a
-                          className='btn text-danger'
-                          onClick={() => {
-                            onDelete(id)
-                          }}
-                        >
-                          <i className='fas fa-trash-alt'></i>
-                        </a>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
 
       {/* Page Wrapper */}
       <div id='wrapper'>
@@ -124,7 +77,7 @@ const Catchsize = () => {
           <div className='sidebar-heading'>All Users</div>
 
           <li className='nav-item'>
-            <Link className='nav-link' to='/users'>
+          <Link className='nav-link' to='/users'>
               <i className='fas fa-fw fa-users'></i>
               <span>Users</span>
             </Link>
@@ -133,6 +86,55 @@ const Catchsize = () => {
           {/* Nav Item - Utilities Collapse Menu  */}
 
           {/* Divider */}
+          <hr className='sidebar-divider my-0' />
+
+          <li className='nav-item'>
+            <a className='nav-link' href='/socialcatch'>
+              <i className='fas fa-fw fa-fish'></i>
+              <span>Social Catch</span>
+            </a>
+          </li>
+
+          <hr className='sidebar-divider' />
+
+        {/* Heading  */}
+        <div className='sidebar-heading'>Discover Page</div>
+
+        <li className='nav-item active'>
+        <a
+            href='/'
+            className='nav-link'
+            data-toggle='collapse'
+            data-target='#collapseTwo'
+            aria-expanded='true'
+            aria-controls='collapseTwo'
+        >
+            <i className='fas fa-fw fa-table'></i>
+            <span>Discover</span>
+        </a>
+        <div
+            id='collapseTwo'
+            className='collapse show'
+            aria-labelledby='headingTwo'
+            data-parent='#accordionSidebar'
+        >
+            <div className='bg-white py-2 collapse-inner rounded'>
+            <Link to='/discoverfishlist'>
+                <a className='collapse-item'>Fish List</a>
+            </Link>
+            <Link to='/fishingregulations'>
+                <a className='collapse-item'>Fishing Regulations</a>
+            </Link>
+            <Link to='/fishingtechniques'>
+                <a className='collapse-item'>Fishing Techniques</a>
+            </Link>
+            <Link to='/fishinghotspots'>
+                <a className='collapse-item'>Fishing Hotspots</a>
+            </Link>
+            </div>
+        </div>
+        </li>
+
           <hr className='sidebar-divider' />
 
           {/* Heading  */}
@@ -148,7 +150,7 @@ const Catchsize = () => {
               </a>
             </li> */}
 
-          <li className='nav-item active'>
+          <li className='nav-item'>
             <a
               href='/'
               className='nav-link'
@@ -185,7 +187,12 @@ const Catchsize = () => {
                 <Link to='/environmenttype'>
                   <a className='collapse-item'>Environment Type</a>
                 </Link>
-                <a className='collapse-item active'>Catch Size</a>
+                <Link to='/catchtype'>
+                  <a className='collapse-item'>Catch Type</a>
+                </Link>
+                <Link to='/hobbyisttype'>
+                  <a className='collapse-item'>Hobbyist Type</a>
+                </Link>
               </div>
             </div>
           </li>
@@ -332,20 +339,14 @@ const Catchsize = () => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>Hobbyist (Lure Type)</h1>
-              <p className='mb-4'>Hobbyist Fishing Setup Data Entry</p>
-              <Link to='/' class='btn btn-primary btn-icon-split btn-sm mb-3'>
-                <span class='icon text-white-50'>
-                  <i class='fas fa-arrow-right'></i>
-                </span>
-                <span class='text'>Back to Hobbyist</span>
-              </Link>
-              <CatchsizeForm {...{ addOrEdit, currentId, contactObjects }} />
+              <h1 className='h3 mb-2 text-gray-800'>BFAR News Update</h1>
+              <p className='mb-4'>Data entry for news for Bureau of Fisheries and Aquatic Resources</p>
+              <BfarNewsForm {...{ addOrEdit, currentId, contactObjects }} />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
                   <h6 className='m-0 font-weight-bold text-primary'>
-                    Hobbyist List
+                    Discover - BFAR News
                   </h6>
                 </div>
                 <div className='card-body'>
@@ -360,8 +361,9 @@ const Catchsize = () => {
                         <tr>
                           <th>Actions</th>
                           <th>ID</th>
-                          <th>Name</th>
-                          <th>Weight</th>
+                          <th>News Title</th>
+                          <th>News Image</th>
+                          <th>Source</th>
                           <th>isDeleted</th>
                         </tr>
                       </thead>
@@ -390,10 +392,13 @@ const Catchsize = () => {
                                 </a>
                               </td>
                               <td>{id}</td>
-                              <td>{contactObjects[id].catchSizeName}</td>
-                              <td>{contactObjects[id].catchSizeWeight}</td>
+                              <td>{contactObjects[id].newsTitle}</td>
+                              <td style={{ width: '1px' }}>
+                                <img src={contactObjects[id].newsImage} />
+                              </td>
+                              <td>{contactObjects[id].newsSource}</td>
                               <td>
-                                {contactObjects[id].catchSizeIsDeleted == '0'
+                                {contactObjects[id].isDeleted == '0'
                                   ? 'False'
                                   : 'True'}
                               </td>
@@ -426,4 +431,4 @@ const Catchsize = () => {
   )
 }
 
-export default Catchsize
+export default BfarNews

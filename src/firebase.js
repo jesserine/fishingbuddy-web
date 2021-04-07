@@ -7,7 +7,7 @@ import 'firebase/storage'
 var firebaseConfig = {
   apiKey: 'AIzaSyBH-rhyR8tHJ0b6jsCqVkkZeYQKgKinndo',
   authDomain: 'fishingbuddy-web.firebaseapp.com',
-  databaseURL: 'https://fishingbuddy-web-default-rtdb.firebaseio.com',
+  databaseURL: 'https://fishingbuddy-mobile.firebaseio.com/',
   projectId: 'fishingbuddy-web',
   storageBucket: 'fishingbuddy-web.appspot.com',
   messagingSenderId: '1004313328108',
