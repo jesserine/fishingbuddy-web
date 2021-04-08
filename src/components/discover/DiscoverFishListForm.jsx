@@ -18,12 +18,24 @@ const DiscoverFishListForm = (props) => {
     fishIucnStatus: '',
     isDeleted: '0',
     fishImage: '',
-    // imageFile: null,
+    forTinuwa: '0',
+    forFried: '0',
+    forKilawin: '0',
+    forSinugba: '0'
   }
-
+  var [iucnStatusObjects, setiucnStatusObjects] = useState({})
   var [values, setValues] = useState(initialFieldValues)
-
   var [contactObjects, setContactObjects] = useState({})
+
+  useEffect(() => {
+    firebaseDb.ref('discover/iucnstatus').on('value', (snapshot) => {
+      if (snapshot.val() != null)
+      setiucnStatusObjects({
+          ...snapshot.val(),
+        })
+      else setiucnStatusObjects({})
+    })
+  }, [])
 
   useEffect(() => {
     firebaseDb.ref('discover/fishlist').on('value', (snapshot) => {
@@ -218,10 +230,37 @@ const DiscoverFishListForm = (props) => {
       <div className='form-group input-group row'>
         <div className='col-sm-4 mb-4 mb-sm-0'>
           <label>Fish IUCN Status</label>
-          <input
+          <select
             className='form-control'
             name='fishIucnStatus'
             value={values.fishIucnStatus}
+            onChange={handleInputChange}
+            required
+          >
+            <option value=''>Select</option>
+          {Object.keys(iucnStatusObjects).map((id) => {
+            return (
+              <React.Fragment key={id}>
+                {iucnStatusObjects[id].isDeleted == '0' ? (
+                  <option value={iucnStatusObjects[id].iucnStatus}>
+                    {iucnStatusObjects[id].iucnStatus
+                    }
+                  </option>
+                ) : (
+                  ''
+                )}
+              </React.Fragment>
+            )
+          })}
+        </select>
+        </div>
+
+        <div className='col-sm-4 mb-4 mb-sm-0'>
+          <label>Local Fish Name</label>
+          <input
+            className='form-control'
+            name='fishLocalName'
+            value={values.fishLocalName}
             onChange={handleInputChange}
             required
           />
@@ -233,6 +272,63 @@ const DiscoverFishListForm = (props) => {
             className='form-control'
             name='isDeleted'
             value={values.isDeleted}
+            onChange={handleInputChange}
+          >
+            <option value='0'>False</option>
+            <option value='1'>True</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div className='form-group input-group row'>
+      <div className='col-sm-12 mb-2 mb-sm-0'>
+          <label>Best way to cook the fish?</label>
+        </div>
+      </div>
+      <div className='form-group input-group row'>
+        <div className='col-sm-2 mb-2 mb-sm-0'>
+          <label>Tinuwa</label>
+          <select
+            className='form-control'
+            name='forTinuwa'
+            value={values.forTinuwa}
+            onChange={handleInputChange}
+          >
+            <option value='0'>False</option>
+            <option value='1'>True</option>
+          </select>
+        </div>
+        <div className='col-sm-2 mb-2 mb-sm-0'>
+          <label>Sinugba</label>
+          <select
+            className='form-control'
+            name='forSinugba'
+            value={values.forSinugba}
+            onChange={handleInputChange}
+          >
+            <option value='0'>False</option>
+            <option value='1'>True</option>
+          </select>
+        </div>
+        <div className='col-sm-2 mb-2 mb-sm-0'>
+          <label>Fried</label>
+          <select
+            className='form-control'
+            name='forFried'
+            value={values.forFried}
+            onChange={handleInputChange}
+          >
+            <option value='0'>False</option>
+            <option value='1'>True</option>
+          </select>
+        </div>
+        <div className='col-sm-2 mb-2 mb-sm-0'>
+          <label>Kilawin</label>
+          <select
+            className='form-control'
+            name='forKilawin'
+            value={values.forKilawin}
             onChange={handleInputChange}
           >
             <option value='0'>False</option>

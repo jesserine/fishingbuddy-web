@@ -188,6 +188,9 @@ const DiscoverFishList = () => {
             <Link to='/fishinghotspots'>
                 <a className='collapse-item'>Fishing Hotspots</a>
             </Link>
+            <Link to='/iucnstatus'>
+                <a className='collapse-item'>IUCN Status</a>
+            </Link>
             </div>
         </div>
         </li>
@@ -421,11 +424,16 @@ const DiscoverFishList = () => {
                           <th>ID</th>
                           <th>Common Name</th>
                           <th>Scientific Name</th>
+                          <th>Local Name</th>
                           <th>Image</th>
                           <th>Description</th>
                           <th>Season/Months available</th>
                           <th>IUCN Status</th>
                           <th>Threat to Human</th>
+                          <th>For Tinuwa</th>
+                          <th>For Fried</th>
+                          <th>For Sinugba</th>
+                          <th>For Kilawin</th>
                           <th>isDeleted</th>
                         </tr>
                       </thead>
@@ -456,6 +464,7 @@ const DiscoverFishList = () => {
                               <td>{id}</td>
                               <td>{contactObjects[id].fishCommonName}</td>
                               <td>{contactObjects[id].fishScientificName}</td>
+                              <td>{contactObjects[id].fishLocalName}</td>
                               <td style={{ width: '1px' }}>
                                 <img src={contactObjects[id].fishImage} />
                               </td>
@@ -467,6 +476,18 @@ const DiscoverFishList = () => {
                                   ? 'No'
                                   : 'Yes'}
                               </td>
+                              <td>{contactObjects[id].forTinuwa== '0'
+                                  ? 'No'
+                                  : 'Yes'}</td>
+                              <td>{contactObjects[id].forFried== '0'
+                                  ? 'No'
+                                  : 'Yes'}</td>
+                              <td>{contactObjects[id].forSinugba== '0'
+                                  ? 'No'
+                                  : 'Yes'}</td>
+                              <td>{contactObjects[id].forKilawin== '0'
+                                  ? 'No'
+                                  : 'Yes'}</td>
                               <td>
                                 {contactObjects[id].isDeleted == '0'
                                   ? 'False'

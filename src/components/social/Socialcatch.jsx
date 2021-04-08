@@ -186,6 +186,9 @@ const Socialcatch = () => {
               <Link to='/fishinghotspots'>
                   <a className='collapse-item'>Fishing Hotspots</a>
               </Link>
+              <Link to='/iucnstatus'>
+                  <a className='collapse-item'>IUCN Status</a>
+              </Link>
               </div>
           </div>
           </li>
@@ -432,10 +435,6 @@ const Socialcatch = () => {
                           <th>User ID</th>
                           <th>Price per Kilo</th>
                           <th>Stocks Quantity</th>
-                          <th>For Tinuwa</th>
-                          <th>For Fried</th>
-                          <th>For Sinugba</th>
-                          <th>For Kilawin</th>
                           <th>isDeleted</th>
                         </tr>
                       </thead>
@@ -480,18 +479,6 @@ const Socialcatch = () => {
                               <td>{contactObjects[id].userID}</td>
                               <td>{contactObjects[id].pricePerKilo}</td>
                               <td>{contactObjects[id].stocksQuantity}</td>
-                              <td>{contactObjects[id].forTinuwa== '0'
-                                  ? 'No'
-                                  : 'Yes'}</td>
-                              <td>{contactObjects[id].forFried== '0'
-                                  ? 'No'
-                                  : 'Yes'}</td>
-                              <td>{contactObjects[id].forSinugba== '0'
-                                  ? 'No'
-                                  : 'Yes'}</td>
-                              <td>{contactObjects[id].forKilawin== '0'
-                                  ? 'No'
-                                  : 'Yes'}</td>
                               <td>
                                 {contactObjects[id].isDeleted == '0'
                                   ? 'False'

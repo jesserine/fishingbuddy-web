@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import FishingTechniquesForm from './FishingTechniquesForm.jsx'
+import IUCNStatusForm from './IUCNStatusForm'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
 
-const FishingTechniques = () => {
+const IUCNStatus = () => {
   var [contactObjects, setContactObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('discover/fishingtechniques').on('value', (snapshot) => {
+    firebaseDb.ref('discover/iucnstatus').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val(),
@@ -20,12 +20,12 @@ const FishingTechniques = () => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('discover/fishingtechniques').push(obj, (err) => {
+      firebaseDb.ref('discover/iucnstatus').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`discover/fishingtechniques/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`discover/iucnstatus/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,7 +33,7 @@ const FishingTechniques = () => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`discover/fishingtechniques/${key}`).remove((err) => {
+      firebaseDb.ref(`discover/iucnstatus/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -124,10 +124,10 @@ const FishingTechniques = () => {
           <div className='sidebar-heading'>All Users</div>
 
           <li className='nav-item'>
-            <Link className='nav-link' to='/users'>
+            <a className='nav-link' href='tables.html'>
               <i className='fas fa-fw fa-users'></i>
               <span>Users</span>
-            </Link>
+            </a>
           </li>
 
           {/* Nav Item - Utilities Collapse Menu  */}
@@ -399,15 +399,15 @@ const FishingTechniques = () => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>Discover - Fishing Techniques</h1>
-              <p className='mb-4'>Data entry for fishing techniques on mobile app discover tab.</p>
+              <h1 className='h3 mb-2 text-gray-800'>Fish IUCN Status</h1>
+              <p className='mb-4'>The IUCN Red List Categories and Criteria are intended to be an easily and widely understood system for classifying species at high risk of global extinction.</p>
 
-              <FishingTechniquesForm {...{ addOrEdit, currentId, contactObjects }} />
+              <IUCNStatusForm {...{ addOrEdit, currentId, contactObjects }} />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
                   <h6 className='m-0 font-weight-bold text-primary'>
-                    Discover - Fishing Techniques
+                    Discover Fish List
                   </h6>
                 </div>
                 <div className='card-body'>
@@ -422,9 +422,7 @@ const FishingTechniques = () => {
                         <tr>
                           <th>Actions</th>
                           <th>ID</th>
-                          <th>Technique Name</th>
-                          <th>Steps to Follow</th>
-                          <th>Image</th>
+                          <th>IUCN Status</th>
                           <th>Description</th>
                           <th>isDeleted</th>
                         </tr>
@@ -454,12 +452,8 @@ const FishingTechniques = () => {
                                 </a>
                               </td>
                               <td>{id}</td>
-                              <td>{contactObjects[id].fishingTechniqueName}</td>
-                              <td>{contactObjects[id].fishingTechniqueStepsToFollow}</td>
-                              <td style={{ width: '1px' }}>
-                                <img src={contactObjects[id].fishingTechniqueImage} />
-                              </td>
-                              <td>{contactObjects[id].fishingTechniqueDescription}</td>
+                              <td>{contactObjects[id].iucnStatus}</td>
+                              <td>{contactObjects[id].iucnStatusDescription}</td>
                               <td>
                                 {contactObjects[id].isDeleted == '0'
                                   ? 'False'
@@ -494,4 +488,4 @@ const FishingTechniques = () => {
   )
 }
 
-export default FishingTechniques
+export default IUCNStatus
