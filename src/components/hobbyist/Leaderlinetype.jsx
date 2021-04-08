@@ -196,6 +196,9 @@ const Leaderlinetype = () => {
             <Link to='/fishinghotspots'>
                 <a className='collapse-item'>Fishing Hotspots</a>
             </Link>
+            <Link to='/iucnstatus'>
+                <a className='collapse-item'>IUCN Status</a>
+            </Link>
             </div>
         </div>
         </li>
