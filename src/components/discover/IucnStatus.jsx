@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import SocialcatchForm from './SocialcatchForm'
+import IUCNStatusForm from './IUCNStatusForm'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
 
-const Socialcatch = () => {
+const IUCNStatus = () => {
   var [contactObjects, setContactObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
-    firebaseDb.ref('socialcatch').on('value', (snapshot) => {
+    firebaseDb.ref('discover/iucnstatus').on('value', (snapshot) => {
       if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val(),
@@ -20,12 +20,12 @@ const Socialcatch = () => {
 
   const addOrEdit = (obj) => {
     if (currentId == '')
-      firebaseDb.ref('socialcatch').push(obj, (err) => {
+      firebaseDb.ref('discover/iucnstatus').push(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
     else
-      firebaseDb.ref(`socialcatch/${currentId}`).set(obj, (err) => {
+      firebaseDb.ref(`discover/iucnstatus/${currentId}`).set(obj, (err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -33,7 +33,7 @@ const Socialcatch = () => {
 
   const onDelete = (key) => {
     if (window.confirm('Are you sure to delete this record?')) {
-      firebaseDb.ref(`socialcatch/${key}`).remove((err) => {
+      firebaseDb.ref(`discover/iucnstatus/${key}`).remove((err) => {
         if (err) console.log(err)
         else setCurrentId('')
       })
@@ -124,27 +124,19 @@ const Socialcatch = () => {
           <div className='sidebar-heading'>All Users</div>
 
           <li className='nav-item'>
-            <Link className='nav-link' to='/users'>
+            <a className='nav-link' href='tables.html'>
               <i className='fas fa-fw fa-users'></i>
               <span>Users</span>
-            </Link>
+            </a>
           </li>
 
           {/* Nav Item - Utilities Collapse Menu  */}
-          <hr className='sidebar-divider my-0' />
-
-        <li className='nav-item'>
-          <Link className='nav-link' to='/fishinggears'>
-            <i className='fas fa-fw fa-fish'></i>
-            <span>Gear Products</span>
-          </Link>
-        </li>
 
           {/* Divider */}
           <hr className='sidebar-divider my-0' />
 
-          <li className='nav-item active'>
-            <a className='nav-link'>
+          <li className='nav-item'>
+            <a className='nav-link' href='/socialcatch'>
               <i className='fas fa-fw fa-fish'></i>
               <span>Social Catch</span>
             </a>
@@ -152,45 +144,58 @@ const Socialcatch = () => {
 
           <hr className='sidebar-divider' />
 
-          {/* Heading  */}
-          <div className='sidebar-heading'>Discover Page</div>
+        {/* Heading  */}
+        <div className='sidebar-heading'>Discover Page</div>
 
-          <li className='nav-item'>
-          <a
-              href='/'
-              className='nav-link'
-              data-toggle='collapse'
-              data-target='#collapseTwo'
-              aria-expanded='true'
-              aria-controls='collapseTwo'
-          >
-              <i className='fas fa-fw fa-table'></i>
-              <span>Discover</span>
-          </a>
-          <div
-              id='collapseTwo'
-              className='collapse show'
-              aria-labelledby='headingTwo'
-              data-parent='#accordionSidebar'
-          >
-              <div className='bg-white py-2 collapse-inner rounded'>
-              <Link to='/discoverfishlist'>
-                  <a className='collapse-item'>Fish List</a>
-              </Link>
-              <Link to='/fishingregulations'>
-                  <a className='collapse-item'>Fishing Regulations</a>
-              </Link>
-              <Link to='/fishingtechniques'>
-                  <a className='collapse-item'>Fishing Techniques</a>
-              </Link>
-              <Link to='/fishinghotspots'>
-                  <a className='collapse-item'>Fishing Hotspots</a>
-              </Link>
-              </div>
-          </div>
-          </li>
+        {/* Nav Item - Pages Collapse Menu  */}
 
-            <hr className='sidebar-divider' />
+        {/* Nav Item - Tables  */}
+        {/* <li className='nav-item active'>
+            <a className='nav-link' href='tables.html'>
+            <i className='fas fa-fw fa-table'></i>
+            <span>Hobbyist</span>
+            </a>
+        </li> */}
+
+        <li className='nav-item active'>
+        <a
+            href='/'
+            className='nav-link'
+            data-toggle='collapse'
+            data-target='#collapseTwo'
+            aria-expanded='true'
+            aria-controls='collapseTwo'
+        >
+            <i className='fas fa-fw fa-table'></i>
+            <span>Discover</span>
+        </a>
+        <div
+            id='collapseTwo'
+            className='collapse show'
+            aria-labelledby='headingTwo'
+            data-parent='#accordionSidebar'
+        >
+            <div className='bg-white py-2 collapse-inner rounded'>
+            <Link to='/discoverfishlist'>
+                <a className='collapse-item'>Fish List</a>
+            </Link>
+            <Link to='/fishingregulations'>
+                <a className='collapse-item'>Fishing Regulations</a>
+            </Link>
+            <Link to='/fishingtechniques'>
+                <a className='collapse-item'>Fishing Techniques</a>
+            </Link>
+            <Link to='/fishinghotspots'>
+                <a className='collapse-item'>Fishing Hotspots</a>
+            </Link>
+            <Link to='/iucnstatus'>
+                <a className='collapse-item'>IUCN Status</a>
+            </Link>
+            </div>
+        </div>
+        </li>
+
+          <hr className='sidebar-divider' />
 
           {/* Heading  */}
           <div className='sidebar-heading'>All Hobbyist</div>
@@ -394,21 +399,15 @@ const Socialcatch = () => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>Social Catch</h1>
-              <p className='mb-4'>Data entry for social catch.</p>
+              <h1 className='h3 mb-2 text-gray-800'>Fish IUCN Status</h1>
+              <p className='mb-4'>The IUCN Red List Categories and Criteria are intended to be an easily and widely understood system for classifying species at high risk of global extinction.</p>
 
-              <Link to='/' class='btn btn-primary btn-icon-split btn-sm mb-3'>
-                <span class='icon text-white-50'>
-                  <i class='fas fa-arrow-right'></i>
-                </span>
-                <span class='text'>Back to Hobbyist</span>
-              </Link>
-              <SocialcatchForm {...{ addOrEdit, currentId, contactObjects }} />
+              <IUCNStatusForm {...{ addOrEdit, currentId, contactObjects }} />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
                   <h6 className='m-0 font-weight-bold text-primary'>
-                    Social Catch List
+                    Discover Fish List
                   </h6>
                 </div>
                 <div className='card-body'>
@@ -423,15 +422,8 @@ const Socialcatch = () => {
                         <tr>
                           <th>Actions</th>
                           <th>ID</th>
-                          <th>Name</th>
+                          <th>IUCN Status</th>
                           <th>Description</th>
-                          <th>Image</th>
-                          <th>Timestamp</th>
-                          <th>Ships From</th>
-                          <th>Sell Catch</th>
-                          <th>User ID</th>
-                          <th>Price per Kilo</th>
-                          <th>Stocks Quantity</th>
                           <th>isDeleted</th>
                         </tr>
                       </thead>
@@ -460,22 +452,8 @@ const Socialcatch = () => {
                                 </a>
                               </td>
                               <td>{id}</td>
-                              <td>{contactObjects[id].fishCatchName}</td>
-                              <td>{contactObjects[id].fishCatchDescription}</td>
-                              <td style={{ width: '1px' }}>
-                                <img src={contactObjects[id].fishCatchImage} />
-                              </td>
-                              <td>{new Date(contactObjects[id].fishCatchTimestamp).toLocaleDateString("en-US")} 
-                                {new Date(contactObjects[id].fishCatchTimestamp).toLocaleTimeString("en-US") }</td>
-                              <td>{contactObjects[id].shipsFrom}</td>
-                              <td>
-                                {contactObjects[id].sellCatch == '0'
-                                  ? 'No'
-                                  : 'Yes'}
-                              </td>
-                              <td>{contactObjects[id].userID}</td>
-                              <td>{contactObjects[id].pricePerKilo}</td>
-                              <td>{contactObjects[id].stocksQuantity}</td>
+                              <td>{contactObjects[id].iucnStatus}</td>
+                              <td>{contactObjects[id].iucnStatusDescription}</td>
                               <td>
                                 {contactObjects[id].isDeleted == '0'
                                   ? 'False'
@@ -510,4 +488,4 @@ const Socialcatch = () => {
   )
 }
 
-export default Socialcatch
+export default IUCNStatus

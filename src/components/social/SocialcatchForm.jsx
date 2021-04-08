@@ -17,10 +17,6 @@ const SocialcatchForm = (props) => {
     stocksQuantity: '',
     isDeleted: '0',
     fishCatchImage: '',
-    forTinuwa: '0',
-    forFried: '0',
-    forKilawin: '0',
-    forSinugba: '0'
   }
 
   var [values, setValues] = useState(initialFieldValues)
@@ -202,66 +198,6 @@ const SocialcatchForm = (props) => {
       <div className='form-group input-group row'>
       <div className='col-sm-12 mb-2 mb-sm-0'>
           <label>Best way to cook the fish?</label>
-        </div>
-      </div>
-      <div className='form-group input-group row'>
-        <div className='col-sm-2 mb-2 mb-sm-0'>
-          <label>Tinuwa</label>
-          <select
-            className='form-control'
-            name='forTinuwa'
-            value={values.forTinuwa}
-            onChange={handleInputChange}
-          >
-            <option value='0'>False</option>
-            <option value='1'>True</option>
-          </select>
-        </div>
-        <div className='col-sm-2 mb-2 mb-sm-0'>
-          <label>Sinugba</label>
-          <select
-            className='form-control'
-            name='forSinugba'
-            value={values.forSinugba}
-            onChange={handleInputChange}
-          >
-            <option value='0'>False</option>
-            <option value='1'>True</option>
-          </select>
-        </div>
-        <div className='col-sm-2 mb-2 mb-sm-0'>
-          <label>Fried</label>
-          <select
-            className='form-control'
-            name='forFried'
-            value={values.forFried}
-            onChange={handleInputChange}
-          >
-            <option value='0'>False</option>
-            <option value='1'>True</option>
-          </select>
-        </div>
-        <div className='col-sm-2 mb-2 mb-sm-0'>
-          <label>Kilawin</label>
-          <select
-            className='form-control'
-            name='forKilawin'
-            value={values.forKilawin}
-            onChange={handleInputChange}
-          >
-            <option value='0'>False</option>
-            <option value='1'>True</option>
-          </select>
-        </div>
-        <div className='col-sm-4 mb-4 mb-sm-0'>
-          <label hidden>Fish Catch Timestamp</label>
-          <input
-            className='form-control'
-            name='fishCatchTimestamp'
-            value={values.fishCatchTimestamp}
-            onChange={values.fishCatchTimestamp = new Date().getTime()}
-            hidden
-          />
         </div>
       </div>
 
