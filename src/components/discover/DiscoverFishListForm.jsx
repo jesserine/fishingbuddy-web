@@ -22,7 +22,6 @@ const DiscoverFishListForm = (props) => {
     forFried: '0',
     forKilawin: '0',
     forSinugba: '0'
-    // imageFile: null,
   }
   var [iucnStatusObjects, setiucnStatusObjects] = useState({})
   var [values, setValues] = useState(initialFieldValues)
