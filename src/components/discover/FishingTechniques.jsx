@@ -131,6 +131,14 @@ const FishingTechniques = () => {
           </li>
 
           {/* Nav Item - Utilities Collapse Menu  */}
+          <hr className='sidebar-divider my-0' />
+
+          <li className='nav-item'>
+            <Link className='nav-link' to='/fishinggears'>
+              <i className='fas fa-fw fa-fish'></i>
+              <span>Gear Products</span>
+            </Link>
+          </li>
 
           {/* Divider */}
           <hr className='sidebar-divider my-0' />
