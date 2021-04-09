@@ -138,7 +138,7 @@ const BfarRegulations = () => {
           <li className='nav-item'>
             <Link className='nav-link' to='/fishinggears'>
               <i className='fas fa-fw fa-fish'></i>
-              <span>Gear Products</span>
+              <span>Products</span>
             </Link>
           </li>
 
