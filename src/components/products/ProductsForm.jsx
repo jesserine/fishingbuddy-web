@@ -5,12 +5,17 @@ import { storage } from '../../firebase'
 import { v4 as uuid } from 'uuid'
 
 
-const FishingGearForm = (props) => {
+const ProductsForm = (props) => {
   const initialFieldValues = {
-    productName: '',
-    productType: '0',
-    productBrand: '',
-    productPrice: '',
+    title: '',
+    description: '',
+    category: '',
+    address: '',
+    stock: '0',
+    price: '0',
+    ownerId: '',
+    ownerName: '',
+    urlPhoto: '',
     isDeleted: '0',
   }
 
@@ -47,6 +52,23 @@ const FishingGearForm = (props) => {
     })
   }
 
+  const [imageUrl, setImageUrl] = useState()
+  const readImages = async (e) => {
+    const file = e.target.files[0]
+    const id = uuid()
+    const imagesRef = storage.ref('images').child(id)
+
+    await imagesRef.put(file)
+    imagesRef.getDownloadURL().then((url) => {
+      setImageUrl(url)
+    })
+  }
+
+  if (typeof imageUrl !== 'undefined' && imageUrl != null) {
+    values.urlPhoto = imageUrl
+  } else {
+    values.urlPhoto
+  }
 
   const handleFormSubmit = (e) => {
     e.preventDefault()
@@ -54,28 +76,28 @@ const FishingGearForm = (props) => {
     window.location.reload(false)
   }
 
-  const enabled = values.productName.length > 0
+  const enabled = values.title.length > 0
 
   return (
     <form autoComplete='off' onSubmit={handleFormSubmit}>
       <div className='form-group input-group row'>
         <div className='col-sm-4 mb-4 mb-sm-0'>
-          <label>Product Name</label>
+          <label>Product title</label>
           <input
             className='form-control'
-            name='productName'
-            value={values.productName}
+            name='title'
+            value={values.title}
             onChange={handleInputChange}
             required
           />
         </div>
 
         <div className='col-sm-4 mb-4 mb-sm-0'>
-          <label>Product Type</label>
+          <label>Category</label>
           <select
             className='form-control'
-            name='productType'
-            value={values.productType}
+            name='category'
+            value={values.category}
             onChange={handleInputChange}
           >
             <option value='0'>Rod</option>
@@ -84,16 +106,49 @@ const FishingGearForm = (props) => {
             <option value='3'>Leaderline</option>
             <option value='4'>Lure</option>
             <option value='5'>Net</option>
+            <option value='6'>Fish</option>
           </select>
         </div>
-
-
         <div className='col-sm-4 mb-4 mb-sm-0'>
-          <label>Product Brand</label>
+          <label>Description</label>
           <input
             className='form-control'
-            name='productBrand'
-            value={values.productBrand}
+            name='description'
+            value={values.description}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        
+      </div>
+
+      <div className='form-group input-group row'>
+        <div className='col-sm-4 mb-4 mb-sm-0'>
+            <label>Owner Id</label>
+            <input
+              className='form-control'
+              name='ownerId'
+              value={values.ownerId}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className='col-sm-4 mb-4 mb-sm-0'>
+            <label>Owner Name</label>
+            <input
+              className='form-control'
+              name='ownerName'
+              value={values.ownerName}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className='col-sm-4 mb-4 mb-sm-0'>
+          <label>Seller Address</label>
+          <input
+            className='form-control'
+            name='address'
+            value={values.address}
             onChange={handleInputChange}
             required
           />
@@ -105,13 +160,44 @@ const FishingGearForm = (props) => {
           <label>Product Price</label>
           <input
             className='form-control'
-            name='productPrice'
-            value={values.productPrice}
+            name='price'
+            value={values.price}
             onChange={handleInputChange}
             required
           />
         </div>
+        <div className='col-sm-4 mb-4 mb-sm-0'>
+          <label>Stocks</label>
+          <input
+            className='form-control'
+            name='stock'
+            value={values.stock}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+      </div>
 
+      <div className='form-group input-group row'>
+      <div className='col-sm-4 mb-4 mb-sm-0'>
+          <label className='mr-10'>Product Image</label>
+          <input type='file' accept='image/*' onChange={readImages} />
+          <input
+            className='form-control'
+            name='urlPhoto'
+            value={values.urlPhoto}
+            onChange={handleInputChange}
+            disabled
+          />
+
+          {
+            // <img
+            //   className='mb-4'
+            //   src={URL.createObjectURL(values.fishCatchImage)}
+            // />
+            // <img src={values.fishCatchImage} />
+          }
+        </div>
         <div className='col-sm-2 mb-2 mb-sm-0'>
           <label>Deleted</label>
           <select
@@ -138,4 +224,4 @@ const FishingGearForm = (props) => {
   )
 }
 
-export default FishingGearForm
+export default ProductsForm

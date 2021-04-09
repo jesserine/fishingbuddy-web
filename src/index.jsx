@@ -22,10 +22,10 @@ import FishingRegulations from './components/discover/FishingRegulations'
 import EndangeredSpecie from './components/discover/EndangeredSpecie'
 import CatchSizeRules from './components/discover/CatchSizeRules'
 import BfarRegulations from './components/discover/BfarRegulations'
-import FishingGear from './components/gear/FishingGear'
 import UsersList from './components/UsersList'
 import BfarNews from './components/discover/BfarNews'
 import IUCNStatus from './components/discover/IUCNStatus' 
+import Products from './components/products/Products'
 
 export const UserContext = React.createContext()
 
@@ -58,7 +58,7 @@ function AuthApp({ user }) {
           <Route exact path='/fishingregulations/endangeredspecies' component={EndangeredSpecie} />
           <Route exact path='/fishingregulations/catchsizerules' component={CatchSizeRules} />
           <Route exact path='/fishingregulations/bfarregulations' component={BfarRegulations} />
-          <Route exact path='/fishinggears' component={FishingGear} />
+          <Route exact path='/fishinggears' component={Products} />
           <Route exact path='/users' component={UsersList} />
           <Route exact path='/news' component={BfarNews} />
           <Route exact path='/iucnstatus' component={IUCNStatus} />
