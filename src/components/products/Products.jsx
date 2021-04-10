@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import FishingGearForm from './FishingGearForm'
+import ProductsForm from './ProductsForm'
 import firebaseDb from '../../firebase'
 import * as db from '../../firestore'
 
-const FishingGear = () => {
+const Products = () => {
   var [contactObjects, setContactObjects] = useState({})
   var [currentId, setCurrentId] = useState('')
 
@@ -48,6 +48,8 @@ const FishingGear = () => {
       case '3': return 'Leaderline';
       case '4': return 'Lure';
       case '5': return 'Net';
+      case '6': return 'Fish';
+      default: return 'Fish';
     }
   }
 
@@ -148,7 +150,7 @@ const FishingGear = () => {
           <li className='nav-item active'>
             <a className='nav-link'>
               <i className='fas fa-fw fa-fish'></i>
-              <span>Gear Products</span>
+              <span>Products</span>
             </a>
           </li>
           
@@ -421,10 +423,10 @@ const FishingGear = () => {
             {/* Begin Page Content  */}
             <div className='container-fluid'>
               {/* Page Heading  */}
-              <h1 className='h3 mb-2 text-gray-800'>Products - Fishing Gear</h1>
-              <p className='mb-4'>Data entry for fishing gear products.</p>
+              <h1 className='h3 mb-2 text-gray-800'>Products </h1>
+              <p className='mb-4'>Data entry for fishing buddy products.</p>
 
-              <FishingGearForm {...{ addOrEdit, currentId, contactObjects }} />
+              <ProductsForm {...{ addOrEdit, currentId, contactObjects }} />
               {/* DataTales Example  */}
               <div className='card shadow mb-4'>
                 <div className='card-header py-3'>
@@ -444,10 +446,15 @@ const FishingGear = () => {
                         <tr>
                           <th>Actions</th>
                           <th>ID</th>
-                          <th>Product Name</th>
-                          <th>Product Type</th>
-                          <th>Product Brand</th>
-                          <th>Product Price</th>
+                          <th>Product Title</th>
+                          <th>Category</th>
+                          <th>Description</th>
+                          <th>Image</th>
+                          <th>Price</th>
+                          <th>Stocks</th>
+                          <th>Seller Id</th>
+                          <th>Seller Name</th>
+                          <th>Address</th>
                           <th>isDeleted</th>
                         </tr>
                       </thead>
@@ -476,13 +483,17 @@ const FishingGear = () => {
                                 </a>
                               </td>
                               <td>{id}</td>
-                              <td>{contactObjects[id].productName}</td>
-                              <td>
-                                {<SwitchCase value={contactObjects[id].productType}/>
-                              }
+                              <td>{contactObjects[id].title}</td>
+                              <td>{contactObjects[id].category}</td>
+                              <td>{contactObjects[id].description}</td>
+                              <td style={{ width: '1px' }}>
+                                <img src={contactObjects[id].image} />
                               </td>
-                              <td>{contactObjects[id].productBrand}</td>
-                              <td>{contactObjects[id].productPrice}</td>
+                              <td>{contactObjects[id].price}</td>
+                              <td>{contactObjects[id].stock}</td>
+                              <td>{contactObjects[id].ownerId}</td>
+                              <td>{contactObjects[id].ownerName}</td>
+                              <td>{contactObjects[id].address}</td>
                               <td>
                                 {
                                 contactObjects[id].isDeleted == '0' 
@@ -519,4 +530,4 @@ const FishingGear = () => {
   )
 }
 
-export default FishingGear
+export default Products
