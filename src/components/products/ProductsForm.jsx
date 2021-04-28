@@ -13,6 +13,7 @@ const ProductsForm = (props) => {
     address: '',
     stock: '0',
     price: '0',
+    fishId: '',
     ownerId: '',
     ownerName: '',
     urlPhoto: '',
@@ -172,6 +173,16 @@ const ProductsForm = (props) => {
             className='form-control'
             name='stock'
             value={values.stock}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className='col-sm-4 mb-4 mb-sm-0'>
+          <label>Fish Id</label>
+          <input
+            className='form-control'
+            name='fishId'
+            value={values.fishId}
             onChange={handleInputChange}
             required
           />

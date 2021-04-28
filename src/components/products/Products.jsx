@@ -448,6 +448,7 @@ const Products = () => {
                           <th>ID</th>
                           <th>Product Title</th>
                           <th>Category</th>
+                          <th>Fish Id</th>
                           <th>Description</th>
                           <th>Image</th>
                           <th>Price</th>
@@ -485,6 +486,7 @@ const Products = () => {
                               <td>{id}</td>
                               <td>{contactObjects[id].title}</td>
                               <td>{contactObjects[id].category}</td>
+                              <td>{contactObjects[id].fishId}</td>
                               <td>{contactObjects[id].description}</td>
                               <td style={{ width: '1px' }}>
                                 <img src={contactObjects[id].image} />
