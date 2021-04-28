@@ -709,6 +709,18 @@ const HobbyistForm = (props) => {
             <option value='1'>Yes</option>
           </select>
         </div>
+        <div className='col-sm-2'>
+          <label>Verified</label>
+          <select
+            className='form-control'
+            name='verified'
+            value={values.isDeleted}
+            onChange={handleInputChange}
+          >
+            <option value='false'>False</option>
+            <option value='true'>True</option>
+          </select>
+        </div>
       </div>
 
       <div className='form-group'>
